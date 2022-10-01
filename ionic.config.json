@@ -1,5 +1,7 @@
 {
   "name": "Learn Language App",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

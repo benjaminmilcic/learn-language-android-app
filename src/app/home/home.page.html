@@ -1,20 +1,70 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
     <ion-title>
-      Blank
+      Learn Language App
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-center">Awesome Subtitle</ion-card-subtitle>
+      <ion-card-title *ngIf="false">Awesome Title</ion-card-title>
+      <ion-card-subtitle *ngIf="false">Awesome Subtitle</ion-card-subtitle>
+      <ion-button color="danger">
+        <ion-icon slot="icon-only" name="play"></ion-icon>
+      </ion-button>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button color="dark" class="ion-margin" expand="block" fill="outline">Block</ion-button>
+      <ion-button color="dark" class="ion-margin" expand="block" fill="outline">Block</ion-button>
+      <ion-button color="dark" class="ion-margin" expand="block" fill="outline">Block</ion-button>
+      <ion-button color="dark" class="ion-margin" expand="block" fill="outline">Block</ion-button>
+      <ion-button color="dark" class="ion-margin" expand="block" fill="outline">Block</ion-button>
+    </ion-card-content>
+    <ion-row>
+      <ion-col size="3">
+        <ion-button color="light" class="ion-padding" size="large">
+          <ion-label>🇭🇷</ion-label>
+          <!-- <ion-label>🇩🇪</ion-label> -->
+        </ion-button>
+      </ion-col>
+      <ion-col size="9">
+        <ion-segment color="secondary" value="default">
+          <ion-segment-button value="default">
+            <ion-label>Text Mode</ion-label>
+            <ion-icon name="text"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value="segment">
+            <ion-label>Audio Mode</ion-label>
+            <ion-icon name="musical-notes"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-accordion-group expand="inset">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="default">
+        <ion-label>Optionen</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        First Content
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+  <div class="ion-padding">
+    <ion-text class="ion-text-center">
+      <p>Wähle eine Kategorie:</p>
+    </ion-text>
+    <div class="ion-text-center">
+      <ion-chip *ngFor="let category of ['1','2','3','4']">{{category}}</ion-chip>
+    </div>
   </div>
+  <ion-footer>
+    <ion-item>
+      <ion-label>Dark Mode</ion-label>
+      <ion-toggle slot="start" (click)="onToggleDarkMode()"></ion-toggle>
+    </ion-item>
+  </ion-footer>
 </ion-content>
