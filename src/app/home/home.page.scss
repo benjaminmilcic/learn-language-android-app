@@ -1,4 +1,20 @@
-ion-title {
-  font-family: 'Caveat', cursive;
+.app-titel {
+  font-family: "Caveat", cursive;
   font-size: 28px;
+}
+
+ion-spinner {
+  transform: scale(2);
+}
+
+.loading {
+  display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+    height: 300px;
+}
+
+.close-button {
+  font-size: 24px;
 }

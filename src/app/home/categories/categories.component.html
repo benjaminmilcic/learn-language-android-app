@@ -1,0 +1,14 @@
+<div class="ion-padding">
+  <ion-text class="ion-text-center">
+    <p>Wähle eine Kategorie:</p>
+  </ion-text>
+  <div class="ion-text-center">
+    <ion-chip
+      #chip
+      *ngFor="let category of databaseService.categories; let i=index;"
+      color = 'primary'
+      (click)="onSelectChip(chip,i)">
+      {{category}}
+    </ion-chip>
+  </div>
+</div>
