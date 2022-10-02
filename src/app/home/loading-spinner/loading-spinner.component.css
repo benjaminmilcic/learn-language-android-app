@@ -1,0 +1,11 @@
+ion-spinner {
+    transform: scale(2);
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+}

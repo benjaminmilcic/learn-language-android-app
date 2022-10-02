@@ -6,6 +6,11 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { CategoriesComponent } from './categories/categories.component';
+import { MenuComponent } from './menu/menu.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { OptionsComponent } from './options/options.component';
+import { MultipleChoiceComponent } from './multiple-choice/multiple-choice.component';
 
 
 @NgModule({
@@ -15,6 +20,14 @@ import { CategoriesComponent } from './categories/categories.component';
     IonicModule,
     HomePageRoutingModule
   ],
-  declarations: [HomePage, CategoriesComponent]
+  declarations: [
+    HomePage,
+    CategoriesComponent,
+    MenuComponent,
+    ToolbarComponent,
+    LoadingSpinnerComponent,
+    OptionsComponent,
+    MultipleChoiceComponent
+  ]
 })
-export class HomePageModule {}
+export class HomePageModule { }

@@ -1,29 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-
-export interface Chapter {
-  german: string,
-  croatian: string,
-  chapterNr: string,
-  vocables: Vocable[]
-}
-
-interface Vocable {
-  german: string,
-  croatian: string,
-  imagePath: string,
-  audioNr: string,
-  chapterIndex: number,
-  checked: boolean
-}
-
-export class MyVocable {
-  constructor(
-    public croatian: string,
-    public german: string,
-    public audio: string
-  ) { }
-}
+import { Chapter, MyVocable } from './models';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +10,9 @@ export class DatabaseService {
 
   private database: Chapter[] = [];
   public databaseLoaded = false;
-
   public categories: string[] = [];
 
-  public vocableList: MyVocable[];
+  public categorySelectSubject = new BehaviorSubject<number>(0);
 
   constructor(private http: HttpClient) { }
 
@@ -48,7 +25,6 @@ export class DatabaseService {
       },
       () => {
         this.categories = this.getCategoyList();
-        this.setVocableList(0);
         this.databaseLoaded = true;
       });
   }
@@ -61,14 +37,14 @@ export class DatabaseService {
     return categories;
   }
 
-  setVocableList(chapter: number) {
-    this.vocableList = [];
+  getVocableList(chapter: number) {
+    let vocableList: MyVocable[] = [];
     for (
       let vocable = 0;
       vocable < this.database[chapter].vocables.length;
       vocable++
     ) {
-      this.vocableList.push(
+      vocableList.push(
         new MyVocable(
           this.database[chapter].vocables[vocable].croatian,
           this.database[chapter].vocables[vocable].german,
@@ -76,10 +52,7 @@ export class DatabaseService {
         )
       );
     }
-    console.log(this.vocableList);
+    return vocableList;
   }
 
-  getVocableList() {
-    return this.vocableList;
-  }
 }

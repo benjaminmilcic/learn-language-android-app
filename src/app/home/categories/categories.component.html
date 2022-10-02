@@ -2,7 +2,7 @@
   <ion-text class="ion-text-center">
     <p>Wähle eine Kategorie:</p>
   </ion-text>
-  <div class="ion-text-center">
+  <div class="ion-text-center" #chipList>
     <ion-chip
       #chip
       *ngFor="let category of databaseService.categories; let i=index;"

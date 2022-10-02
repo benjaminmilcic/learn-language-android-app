@@ -2,12 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../../github/LearnLanguageApp/src/app/vocables/practice"
-		},
-		{
-			"path": "../../github/LearnLanguageApp/src/app/shared"
 		}
 	],
 	"settings": {}

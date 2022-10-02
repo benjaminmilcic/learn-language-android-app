@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { IonChip } from '@ionic/angular';
 import { DatabaseService } from 'src/app/shared/database.service';
 
@@ -7,11 +7,18 @@ import { DatabaseService } from 'src/app/shared/database.service';
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.css']
 })
-export class CategoriesComponent {
+export class CategoriesComponent implements AfterViewInit {
 
+  @ViewChild('chipList') chipList: ElementRef;
   selectedChip: IonChip;
 
   constructor(public databaseService: DatabaseService) { }
+
+  ngAfterViewInit(): void {
+    let firstChip = <IonChip>this.chipList.nativeElement.children[0];
+    firstChip.color = 'danger';
+    this.selectedChip = firstChip;
+  }
 
   onSelectChip(chip: IonChip, index: number) {
     if (this.selectedChip) {
@@ -19,7 +26,7 @@ export class CategoriesComponent {
     }
     chip.color = 'danger';
     this.selectedChip = chip;
-    this.databaseService.setVocableList(index);
+    this.databaseService.categorySelectSubject.next(index);
   }
 
 }
