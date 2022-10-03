@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { IonSegment, SegmentCustomEvent } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { DatabaseService } from 'src/app/shared/database.service';
 import { MyVocable } from 'src/app/shared/models';
+import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
   selector: 'app-multiple-choice',
@@ -31,20 +33,24 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   language = "german";
   otherLanguage = "croatian";
   sprache = 'Deutsche';
-  
+
   disabledWhileWaiting = false;
   allDone = false;
+  allDoneSubscription: Subscription;
 
-  constructor(public databaseService: DatabaseService) { }
+  constructor(public databaseService: DatabaseService, private sharedService: SharedService) { }
 
   ngOnInit() {
+    this.allDoneSubscription = this.sharedService.allDoneSubject.subscribe(data => {
+      this.allDone = data;
+    });
     this.categorySelectSubscription = this.databaseService.categorySelectSubject.subscribe(category => {
       this.vocableList = this.databaseService.getVocableList(category);
-      this.allDone = false;
+      this.sharedService.allDoneSubject.next(false);
 
       // this code ist for testing... it reduces the vocableList to 2 Elements
       // this.vocableList.splice(2, this.vocableList.length - 2);
-      
+
       this.startMultipleChoice(false);
     });
   }
@@ -182,7 +188,7 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
       if (existWordsToPractice) {
         this.createVocableButtons();
       } else {
-        this.allDone = true;
+        this.sharedService.allDoneSubject.next(true);
       }
     });
   }
@@ -204,8 +210,8 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
     this.createVocableButtons(false);
   }
 
-  onChangeMode(mode: string) {
-    if (mode === 'audio') {
+  onChangeMode(segment: IonSegment) {
+    if (segment.value === 'audio') {
       this.audioMode = true;
     } else {
       this.audioMode = false;

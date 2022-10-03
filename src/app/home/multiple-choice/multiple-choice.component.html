@@ -76,12 +76,12 @@
       </ion-button>
     </ion-col>
     <ion-col size="9">
-      <ion-segment color="secondary" value="text">
-        <ion-segment-button value="text" (click)="onChangeMode('text')">
+      <ion-segment color="secondary" value="text" #modeSegment (ionChange)="onChangeMode(modeSegment)">
+        <ion-segment-button value="text">
           <ion-label>Text Mode</ion-label>
           <ion-icon name="text"></ion-icon>
         </ion-segment-button>
-        <ion-segment-button value="audio" (click)="onChangeMode('audio')">
+        <ion-segment-button value="audio">
           <ion-label>Audio Mode</ion-label>
           <ion-icon name="musical-notes"></ion-icon>
         </ion-segment-button>
