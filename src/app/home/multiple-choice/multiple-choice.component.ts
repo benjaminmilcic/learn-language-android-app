@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IonSegment, SegmentCustomEvent } from '@ionic/angular';
+import { IonSegment } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { DatabaseService } from 'src/app/shared/database.service';
 import { MyVocable } from 'src/app/shared/models';
