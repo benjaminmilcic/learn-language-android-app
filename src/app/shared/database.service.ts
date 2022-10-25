@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Chapter, MyVocable } from './models';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
+import databaseJson from 'src/assets/database.json';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +19,24 @@ export class DatabaseService {
   constructor(private http: HttpClient) { }
 
   fetchData() {
-    this.http.get<Chapter[]>('https://vocabularyinputapp-default-rtdb.europe-west1.firebasedatabase.app/exampleDatabase.json').subscribe(data => {
-      this.database = data;
-    },
-      error => {
-        throw new Error(error);
+    let fromInternet = false;
+
+    if (fromInternet) {
+      this.http.get<Chapter[]>('https://vocabularyinputapp-default-rtdb.europe-west1.firebasedatabase.app/exampleDatabase.json').subscribe(data => {
+        this.database = data;
       },
-      () => {
-        this.categories = this.getCategoyList();
-        this.databaseLoaded = true;
-      });
+        error => {
+          throw new Error(error);
+        },
+        () => {
+          this.categories = this.getCategoyList();
+          this.databaseLoaded = true;
+        });
+    } else {
+      this.database = <Chapter[]>databaseJson;
+      this.categories = this.getCategoyList();
+      this.databaseLoaded = true;
+    }
   }
 
   private getCategoyList() {

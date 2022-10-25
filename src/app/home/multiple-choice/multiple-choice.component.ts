@@ -14,7 +14,9 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
 
   playAudio = new Audio;
   audioMode: boolean = false;
-  audioPath = 'https://www.goethe-verlag.com/book2/_alleima/_mp3/';
+  audioPath = '/assets/audio/';
+  // audioPath = 'https://www.goethe-verlag.com/book2/_alleima/_mp3/';
+
   audioLanguage = 'HR';
   firstPlay: boolean;
 
@@ -38,6 +40,8 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   allDone = false;
   allDoneSubscription: Subscription;
 
+  loadVocableListSubscription: Subscription;
+
   constructor(public databaseService: DatabaseService, private sharedService: SharedService) { }
 
   ngOnInit() {
@@ -45,7 +49,8 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
       this.allDone = data;
     });
     this.categorySelectSubscription = this.databaseService.categorySelectSubject.subscribe(category => {
-      this.vocableList = this.databaseService.getVocableList(category);
+      this.sharedService.vocableList = this.databaseService.getVocableList(category);
+      this.vocableList = this.sharedService.vocableList;
       this.sharedService.allDoneSubject.next(false);
 
       // this code ist for testing... it reduces the vocableList to 2 Elements
@@ -53,6 +58,12 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
 
       this.startMultipleChoice(false);
     });
+    this.loadVocableListSubscription = this.sharedService.loadVocableListSubject.subscribe((vocableList) => {
+      this.sharedService.vocableList = [...vocableList];
+      this.vocableList = this.sharedService.vocableList;
+
+      this.startMultipleChoice(false);
+    })
   }
 
   private startMultipleChoice(play: boolean) {
@@ -183,6 +194,7 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
       if (!this.wrongAnswered) {
         this.wrongAnswered = false;
         this.vocableList.splice(this.wordToPracticeIndex, 1);
+        this.sharedService.vocableListChangeSubject.next([...this.vocableList]);
       }
       const existWordsToPractice = this.checkIfExistWordsToPractice();
       if (existWordsToPractice) {

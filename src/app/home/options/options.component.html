@@ -1,10 +1,41 @@
 <ion-accordion-group expand="inset">
-  <ion-accordion value="first">
+  <ion-accordion value="first" class="border">
     <ion-item slot="header" color="default">
       <ion-label>Optionen</ion-label>
     </ion-item>
+
     <div class="ion-padding" slot="content">
-      First Content
+      <ion-grid>
+        <ion-row>
+          <ion-col>Du kannst in jeder Kategorie die aktuelle Vokabelliste speichern und später wieder laden.</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="4">Kategorie: </ion-col>
+          <ion-col>
+            <ion-text color="primary">{{selectedCategoryName}}</ion-text>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button *ngIf="existVocableListToLoad" color="danger" (click)="onLoadVocableList()">
+              {{loadedVocableList.length}} VOKABLEN LADEN
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="onSaveVocableList()" color="danger">{{vocableList.length}} VOKABLEN SPEICHERN
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="onResetVocableList()" color="danger">
+              ZURÜCKSETZEN
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </div>
   </ion-accordion>
 </ion-accordion-group>
