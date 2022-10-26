@@ -77,7 +77,7 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
     return this.vocableList.length > 0 ? true : false;
   }
 
-  private createVocableButtons(play: boolean = true) {
+  createVocableButtons(play: boolean = true) {
 
     this.deleteWordListForButtons();
     this.setNumberOfButtons();
