@@ -11,8 +11,7 @@ import { SharedService } from 'src/app/shared/shared.service';
   styleUrls: ['./multiple-choice.component.css']
 })
 export class MultipleChoiceComponent implements OnInit, OnDestroy {
-
-  playAudio = new Audio;
+  playAudio = new Audio();
   audioMode: boolean = false;
   audioPath = '/assets/audio/';
   // audioPath = 'https://www.goethe-verlag.com/book2/_alleima/_mp3/';
@@ -32,8 +31,8 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   defaultButtonStyle = '';
 
   languageFlag: string = '🇩🇪';
-  language = "german";
-  otherLanguage = "croatian";
+  language = 'german';
+  otherLanguage = 'croatian';
   sprache = 'Deutsche';
 
   disabledWhileWaiting = false;
@@ -42,28 +41,36 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
 
   loadVocableListSubscription: Subscription;
 
-  constructor(public databaseService: DatabaseService, private sharedService: SharedService) { }
+  constructor(
+    public databaseService: DatabaseService,
+    private sharedService: SharedService
+  ) {}
 
   ngOnInit() {
-    this.allDoneSubscription = this.sharedService.allDoneSubject.subscribe(data => {
-      this.allDone = data;
-    });
-    this.categorySelectSubscription = this.databaseService.categorySelectSubject.subscribe(category => {
-      this.sharedService.vocableList = this.databaseService.getVocableList(category);
-      this.vocableList = this.sharedService.vocableList;
-      this.sharedService.allDoneSubject.next(false);
+    this.allDoneSubscription = this.sharedService.allDoneSubject.subscribe(
+      (data) => {
+        this.allDone = data;
+      }
+    );
+    this.categorySelectSubscription =
+      this.databaseService.categorySelectSubject.subscribe((category) => {
+        this.sharedService.vocableList =
+          this.databaseService.getVocableList(category);
+        this.vocableList = this.sharedService.vocableList;
+        this.sharedService.allDoneSubject.next(false);
 
-      // this code ist for testing... it reduces the vocableList to 2 Elements
-      // this.vocableList.splice(2, this.vocableList.length - 2);
+        // this code ist for testing... it reduces the vocableList to 2 Elements
+        // this.vocableList.splice(2, this.vocableList.length - 2);
 
-      this.startMultipleChoice(false);
-    });
-    this.loadVocableListSubscription = this.sharedService.loadVocableListSubject.subscribe((vocableList) => {
-      this.sharedService.vocableList = [...vocableList];
-      this.vocableList = this.sharedService.vocableList;
+        this.startMultipleChoice(false);
+      });
+    this.loadVocableListSubscription =
+      this.sharedService.loadVocableListSubject.subscribe((vocableList) => {
+        this.sharedService.vocableList = [...vocableList];
+        this.vocableList = this.sharedService.vocableList;
 
-      this.startMultipleChoice(false);
-    })
+        this.startMultipleChoice(false);
+      });
   }
 
   private startMultipleChoice(play: boolean) {
@@ -78,13 +85,12 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   }
 
   createVocableButtons(play: boolean = true) {
-
     this.deleteWordListForButtons();
     this.setNumberOfButtons();
     this.setDefaultButtonStyles();
     this.setWordToPractice();
     this.putWordToPracticeOnOneButton();
-    this.fillOtherButtonsWithRandomWords()
+    this.fillOtherButtonsWithRandomWords();
     this.randomizeButtonOrder();
     this.setWrongAnsweredToFalse();
     this.playAudioIfSetToPlay(play);
@@ -96,7 +102,8 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
 
   private setNumberOfButtons() {
     this.numberOfButtons = 5;
-    const lessVocablesToPracticeThanButtons: boolean = this.vocableList.length < this.numberOfButtons;
+    const lessVocablesToPracticeThanButtons: boolean =
+      this.vocableList.length < this.numberOfButtons;
     if (lessVocablesToPracticeThanButtons) {
       this.numberOfButtons = this.vocableList.length;
     }
@@ -110,7 +117,9 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   }
 
   private setWordToPractice() {
-    this.wordToPracticeIndex = Math.floor((Math.random() * this.vocableList.length));
+    this.wordToPracticeIndex = Math.floor(
+      Math.random() * this.vocableList.length
+    );
     this.wordToPractice = this.vocableList[this.wordToPracticeIndex];
   }
 
@@ -119,23 +128,25 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   }
 
   private fillOtherButtonsWithRandomWords() {
-    let allButtonsAreFilled: boolean = this.wordListForButtons.length >= this.numberOfButtons;
+    let allButtonsAreFilled: boolean =
+      this.wordListForButtons.length >= this.numberOfButtons;
 
     while (!allButtonsAreFilled) {
-
       const randomWord = this.createRandomWord();
-      const buttonWithThisWordAlreadyExist: boolean = this.checkIfButtonWithThisWordAlreadyExist(randomWord);
+      const buttonWithThisWordAlreadyExist: boolean =
+        this.checkIfButtonWithThisWordAlreadyExist(randomWord);
 
       if (!buttonWithThisWordAlreadyExist) {
         this.addWordToButtonList(randomWord);
       }
 
-      allButtonsAreFilled = this.wordListForButtons.length === this.numberOfButtons;
+      allButtonsAreFilled =
+        this.wordListForButtons.length === this.numberOfButtons;
     }
   }
 
   private createRandomWord() {
-    const randomIndex = Math.floor((Math.random() * this.vocableList.length));
+    const randomIndex = Math.floor(Math.random() * this.vocableList.length);
     const randomWord = this.vocableList[randomIndex];
     return randomWord[this.language];
   }
@@ -143,8 +154,13 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   private checkIfButtonWithThisWordAlreadyExist(word: string) {
     let buttonWithThisWordAlreadyExist!: boolean;
 
-    for (let buttonNr = 0; buttonNr < this.wordListForButtons.length; buttonNr++) {
-      buttonWithThisWordAlreadyExist = this.wordListForButtons[buttonNr] === word;
+    for (
+      let buttonNr = 0;
+      buttonNr < this.wordListForButtons.length;
+      buttonNr++
+    ) {
+      buttonWithThisWordAlreadyExist =
+        this.wordListForButtons[buttonNr] === word;
       if (buttonWithThisWordAlreadyExist) {
         break;
       }
@@ -172,7 +188,8 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
 
   onButtonClick(buttonNr: number) {
     this.disabledWhileWaiting = true;
-    const isRightAnswer: boolean = this.wordToPractice[this.language] === this.wordListForButtons[buttonNr];
+    const isRightAnswer: boolean =
+      this.wordToPractice[this.language] === this.wordListForButtons[buttonNr];
     this.setButtonColorAndContinue(buttonNr, isRightAnswer);
   }
 
@@ -188,7 +205,7 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   }
 
   private async switchToNextWord() {
-    const wait = new Promise(resolve => setTimeout(resolve, 1500));
+    const wait = new Promise((resolve) => setTimeout(resolve, 1500));
     await wait.then(() => {
       this.disabledWhileWaiting = false;
       if (!this.wrongAnswered) {
@@ -231,12 +248,20 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   }
 
   onPlayAudio() {
-    this.playAudio.src = this.audioPath + this.audioLanguage + '/' + this.wordToPractice.audio + '.mp3';
+    this.playAudio.src =
+      this.audioPath +
+      this.audioLanguage +
+      '/' +
+      this.wordToPractice.audio +
+      '.mp3';
     this.playAudio.play();
+  }
+
+  getActiveModeSegment() {
+   return this.audioMode ? 'audio' : 'text';
   }
 
   ngOnDestroy() {
     this.categorySelectSubscription.unsubscribe();
   }
-
 }
