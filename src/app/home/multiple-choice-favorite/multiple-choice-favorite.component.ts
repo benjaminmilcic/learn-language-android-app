@@ -7,11 +7,11 @@ import { MyVocable } from 'src/app/shared/models';
 import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
-  selector: 'app-multiple-choice',
-  templateUrl: './multiple-choice.component.html',
-  styleUrls: ['./multiple-choice.component.css'],
+  selector: 'app-multiple-choice-favorite',
+  templateUrl: './multiple-choice-favorite.component.html',
+  styleUrls: ['./multiple-choice-favorite.component.css'],
 })
-export class MultipleChoiceComponent implements OnInit, OnDestroy {
+export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   playAudio = new Audio();
   audioMode: boolean = false;
   audioPath = '/assets/audio/';
@@ -41,6 +41,7 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   allDoneSubscription: Subscription;
 
   loadVocableListSubscription: Subscription;
+  loadFavoriteListSubscription: Subscription;
 
   constructor(
     public databaseService: DatabaseService,
@@ -49,29 +50,21 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+
+    this.sharedService.vocableList = [...this.favoriteService.favoriteList];
+    this.vocableList = this.sharedService.vocableList;
+    this.startMultipleChoice(false);
+
     this.allDoneSubscription = this.sharedService.allDoneSubject.subscribe(
       (data) => {
         this.allDone = data;
       }
     );
-    this.categorySelectSubscription =
-      this.databaseService.categorySelectSubject.subscribe((category) => {
-        this.sharedService.vocableList =
-          this.databaseService.getVocableList(category);
-        this.vocableList = this.sharedService.vocableList;
-        this.sharedService.allDoneSubject.next(false);
 
-        // this code ist for testing... it reduces the vocableList to 2 Elements
-        // this.vocableList.splice(2, this.vocableList.length - 2);
-
-        this.startMultipleChoice(false);
-      });
-
-    this.loadVocableListSubscription =
-      this.sharedService.loadVocableListSubject.subscribe((vocableList) => {
+    this.loadFavoriteListSubscription =
+      this.sharedService.loadFavoriteListSubject.subscribe((vocableList) => {
         this.sharedService.vocableList = [...vocableList];
         this.vocableList = this.sharedService.vocableList;
-
         this.startMultipleChoice(false);
       });
   }
@@ -303,8 +296,6 @@ export class MultipleChoiceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.categorySelectSubscription.unsubscribe();
-    this.loadVocableListSubscription.unsubscribe();
-    this.allDoneSubscription.unsubscribe();
+    this.loadFavoriteListSubscription.unsubscribe();
   }
 }

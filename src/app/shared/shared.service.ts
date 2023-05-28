@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MyVocable } from './models';
+import { FavoriteService } from './favorite.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SharedService {
-
   private _vocableList: MyVocable[] = [];
 
-  allDoneSubject = new Subject<boolean>;
+  allDoneSubject = new Subject<boolean>();
 
-  loadVocableListSubject = new Subject<MyVocable[]>;
+  loadVocableListSubject = new Subject<MyVocable[]>();
+  loadFavoriteListSubject = new Subject<MyVocable[]>();
 
-  vocableListChangeSubject = new Subject<MyVocable[]>;
+  vocableListChangeSubject = new Subject<MyVocable[]>();
 
+  practiceMode: 'default' | 'custom' = 'default';
 
-  constructor() { }
+  constructor(private favoriteService: FavoriteService) {}
 
   set vocableList(vocableList: MyVocable[]) {
     this._vocableList = vocableList;
@@ -25,5 +27,4 @@ export class SharedService {
   get vocableList() {
     return this._vocableList;
   }
-
 }

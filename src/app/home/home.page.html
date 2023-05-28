@@ -1,4 +1,4 @@
-<!-- <app-menu></app-menu> -->
+<app-menu></app-menu>
 <div class="ion-page" id="main-content">
   <app-toolbar></app-toolbar>
   <ion-content *ngIf="!databaseService.databaseLoaded">
@@ -8,9 +8,15 @@
     <ion-grid>
       <ion-row>
         <ion-col size-xl="6" offset-xl="3">
-          <app-multiple-choice></app-multiple-choice>
-          <app-options></app-options>
-          <app-categories></app-categories>
+          <div *ngIf="sharedService.practiceMode==='default'">
+            <app-multiple-choice></app-multiple-choice>
+            <app-options></app-options>
+            <app-categories></app-categories>
+          </div>
+          <div *ngIf="sharedService.practiceMode==='custom'">
+            <app-multiple-choice-favorite></app-multiple-choice-favorite>
+            <app-sliding-list></app-sliding-list>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>

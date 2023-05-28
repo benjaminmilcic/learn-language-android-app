@@ -11,6 +11,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { OptionsComponent } from './options/options.component';
 import { MultipleChoiceComponent } from './multiple-choice/multiple-choice.component';
+import { SlidingListComponent } from './sliding-list/sliding-list.component';
+import { MultipleChoiceFavoriteComponent } from './multiple-choice-favorite/multiple-choice-favorite.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { MultipleChoiceComponent } from './multiple-choice/multiple-choice.compo
     ToolbarComponent,
     LoadingSpinnerComponent,
     OptionsComponent,
-    MultipleChoiceComponent
+    MultipleChoiceComponent,
+    MultipleChoiceFavoriteComponent,
+    SlidingListComponent
   ]
 })
 export class HomePageModule { }
