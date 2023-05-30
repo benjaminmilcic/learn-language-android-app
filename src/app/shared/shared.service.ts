@@ -10,13 +10,12 @@ export class SharedService {
   private _vocableList: MyVocable[] = [];
 
   allDoneSubject = new Subject<boolean>();
+  allDoneFavoriteSubject = new Subject<boolean>();
 
   loadVocableListSubject = new Subject<MyVocable[]>();
   loadFavoriteListSubject = new Subject<MyVocable[]>();
 
   vocableListChangeSubject = new Subject<MyVocable[]>();
-
-  practiceMode: 'default' | 'custom' = 'default';
 
   constructor(private favoriteService: FavoriteService) {}
 

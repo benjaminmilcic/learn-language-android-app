@@ -6,6 +6,7 @@ import { FavoriteService } from 'src/app/shared/favorite.service';
 import { MyVocable } from 'src/app/shared/models';
 import { SharedService } from 'src/app/shared/shared.service';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
+import { CategoryService } from 'src/app/shared/category.service';
 
 @Component({
   selector: 'app-practice',
@@ -52,7 +53,8 @@ export class PracticeComponent implements OnInit, OnDestroy {
   constructor(
     public databaseService: DatabaseService,
     private sharedService: SharedService,
-    private favoriteService: FavoriteService
+    private favoriteService: FavoriteService,
+    private categoryService: CategoryService
   ) {
     SpeechRecognition.requestPermissions();
   }
@@ -66,6 +68,8 @@ export class PracticeComponent implements OnInit, OnDestroy {
 
     this.categorySelectSubscription =
       this.databaseService.categorySelectSubject.subscribe((category) => {
+        this.categoryService.titleAddon =
+          'Kategorie: ' + this.databaseService.categories[category];
         this.sharedService.vocableList =
           this.databaseService.getVocableList(category);
         this.vocableList = this.sharedService.vocableList;

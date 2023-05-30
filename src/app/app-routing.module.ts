@@ -15,19 +15,26 @@ const routes: Routes = [
       {
         path: 'categories',
         loadChildren: () =>
-          import('./tabs/home/home.module').then((m) => m.HomePageModule),
+          import('./pages/home/home.module').then((m) => m.HomePageModule),
       },
       {
         path: 'favorites',
         loadChildren: () =>
-          import('./tabs/favorites/favorites.module').then(
+          import('./pages/favorites/favorites.module').then(
             (m) => m.FavoritesPageModule
+          ),
+      },
+      {
+        path: 'notes',
+        loadChildren: () =>
+          import('./pages/notes/notes.module').then(
+            (m) => m.NotesPageModule
           ),
       },
       {
         path: 'settings',
         loadChildren: () =>
-          import('./tabs/settings/settings.module').then(
+          import('./pages/settings/settings.module').then(
             (m) => m.SettingsPageModule
           ),
       },
@@ -36,16 +43,21 @@ const routes: Routes = [
   {
     path: 'favorites',
     loadChildren: () =>
-      import('./tabs/favorites/favorites.module').then(
+      import('./pages/favorites/favorites.module').then(
         (m) => m.FavoritesPageModule
       ),
   },
   {
     path: 'settings',
     loadChildren: () =>
-      import('./tabs/settings/settings.module').then(
+      import('./pages/settings/settings.module').then(
         (m) => m.SettingsPageModule
       ),
+  },
+  {
+    path: 'notes',
+    loadChildren: () =>
+      import('./pages/notes/notes.module').then((m) => m.NotesPageModule),
   },
 
   // {

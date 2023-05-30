@@ -12,11 +12,13 @@ import { SpeechRecognition } from '@capacitor-community/speech-recognition';
   templateUrl: './multiple-choice-favorite.component.html',
   styleUrls: ['./multiple-choice-favorite.component.css'],
 })
-export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
+export class MultipleChoiceFavoriteComponent
+  implements OnInit, OnDestroy
+{
   inputMode: 'multipleChoice' | 'text' = 'multipleChoice';
 
   allDone = false;
-  allDoneSubscription: Subscription;
+  allDoneFavoriteSubscription: Subscription;
 
   playAudio = new Audio();
   audioMode: boolean = false;
@@ -26,7 +28,6 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   audioLanguage = 'HR';
   firstPlay: boolean;
 
-  categorySelectSubscription: Subscription;
   vocableList: MyVocable[] = [];
 
   wordListForButtons: string[] = [];
@@ -63,17 +64,18 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
     this.vocableList = this.sharedService.vocableList;
     this.startMultipleChoice(false);
 
-    this.allDoneSubscription = this.sharedService.allDoneSubject.subscribe(
-      (data) => {
+    this.allDoneFavoriteSubscription =
+      this.sharedService.allDoneFavoriteSubject.subscribe((data) => {
         this.allDone = data;
-      }
-    );
+      });
 
     this.loadFavoriteListSubscription =
       this.sharedService.loadFavoriteListSubject.subscribe((vocableList) => {
-        this.sharedService.vocableList = [...vocableList];
-        this.vocableList = this.sharedService.vocableList;
-        this.startMultipleChoice(false);
+        if (this.sharedService.vocableList.length === 0) {
+          this.sharedService.vocableList = [...vocableList];
+          this.vocableList = this.sharedService.vocableList;
+          this.startMultipleChoice(false);
+        }
       });
   }
 
@@ -223,7 +225,7 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
       if (existWordsToPractice) {
         this.createVocableButtons();
       } else {
-        this.sharedService.allDoneSubject.next(true);
+        this.sharedService.allDoneFavoriteSubject.next(true);
       }
     });
   }
@@ -328,11 +330,12 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   async onSpeech() {
     const { available } = await SpeechRecognition.available();
     if (available) {
+      const speechLanguage = this.language === 'german' ? 'de-DE' : 'hr-HR';
       await SpeechRecognition.start({
         popup: true,
-        language: 'de-DE',
+        language: speechLanguage,
         partialResults: false,
-        prompt: 'Say something',
+        prompt: 'Vokabel einsprechen',
         maxResults: 1,
       }).then((data) => {
         this.wordInput = data.matches[0];
@@ -342,7 +345,7 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.allDoneSubscription.unsubscribe();
+    this.allDoneFavoriteSubscription.unsubscribe();
     this.loadFavoriteListSubscription.unsubscribe();
   }
 }
