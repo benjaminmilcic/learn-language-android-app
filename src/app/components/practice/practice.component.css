@@ -19,7 +19,7 @@ ion-segment-button {
 
 .word-input {
   border: solid 1px;
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .word-input.right {

@@ -55,9 +55,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
     private sharedService: SharedService,
     private favoriteService: FavoriteService,
     private categoryService: CategoryService
-  ) {
-    SpeechRecognition.requestPermissions();
-  }
+  ) {}
 
   ngOnInit() {
     this.allDoneSubscription = this.sharedService.allDoneSubject.subscribe(
@@ -340,11 +338,12 @@ export class PracticeComponent implements OnInit, OnDestroy {
   async onSpeech() {
     const { available } = await SpeechRecognition.available();
     if (available) {
+      const speechLanguage = this.language === 'german' ? 'de-DE' : 'hr-HR';
       await SpeechRecognition.start({
         popup: true,
-        language: 'de-DE',
+        language: speechLanguage,
         partialResults: false,
-        prompt: 'Say something',
+        prompt: 'Vokabel einsprechen',
         maxResults: 1,
       }).then((data) => {
         this.wordInput = data.matches[0];

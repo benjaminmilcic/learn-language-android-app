@@ -12,9 +12,7 @@ import { SpeechRecognition } from '@capacitor-community/speech-recognition';
   templateUrl: './multiple-choice-favorite.component.html',
   styleUrls: ['./multiple-choice-favorite.component.css'],
 })
-export class MultipleChoiceFavoriteComponent
-  implements OnInit, OnDestroy
-{
+export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   inputMode: 'multipleChoice' | 'text' = 'multipleChoice';
 
   allDone = false;
@@ -55,9 +53,7 @@ export class MultipleChoiceFavoriteComponent
     public databaseService: DatabaseService,
     private sharedService: SharedService,
     private favoriteService: FavoriteService
-  ) {
-    SpeechRecognition.requestPermissions();
-  }
+  ) {}
 
   ngOnInit() {
     this.sharedService.vocableList = [...this.favoriteService.favoriteList];

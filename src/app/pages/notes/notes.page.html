@@ -1,11 +1,49 @@
 <!-- <app-menu></app-menu> -->
 <div class="ion-page" id="main-content">
   <!-- <app-toolbar></app-toolbar> -->
-  <ion-content >
+  <ion-content>
     <ion-grid>
       <ion-row>
         <ion-col size-xl="6" offset-xl="3">
-            Notes Page
+          <ion-item fill="outline">
+            <ion-label position="floating">Neue Notiz</ion-label>
+            <ion-input
+              required
+              [(ngModel)]="note"
+              #noteRef="ngModel"
+            ></ion-input>
+          </ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="2">
+                <ion-button fill="clear" (click)="onToggleLanguage()">
+                  <ion-label>{{ languageFlag }}</ion-label>
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button fill="clear" (click)="onSpeech()"
+                  ><ion-icon
+                    color="danger"
+                    slot="icon-only"
+                    name="mic"
+                  ></ion-icon
+                ></ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button
+                  fill="clear"
+                  (click)="onAddNote()"
+                  [disabled]="noteRef.invalid"
+                  >Hinzufügen</ion-button
+                >
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngFor="let item of notes">
+        <ion-col>
+          <ion-card> <ion-card-content> {{item}} </ion-card-content> </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>
