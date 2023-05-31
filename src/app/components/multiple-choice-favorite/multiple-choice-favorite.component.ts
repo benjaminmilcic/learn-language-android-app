@@ -6,6 +6,7 @@ import { FavoriteService } from 'src/app/shared/favorite.service';
 import { MyVocable } from 'src/app/shared/models';
 import { SharedService } from 'src/app/shared/shared.service';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
+import { ScreenReader } from '@capacitor/screen-reader';
 
 @Component({
   selector: 'app-multiple-choice-favorite',
@@ -251,7 +252,7 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
     }
   }
 
-  onPlayAudio() {
+  async onPlayAudio() {
     this.playAudio.src =
       this.audioPath +
       this.audioLanguage +
