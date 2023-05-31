@@ -68,11 +68,11 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
 
     this.loadFavoriteListSubscription =
       this.sharedService.loadFavoriteListSubject.subscribe((vocableList) => {
-        if (this.sharedService.vocableList.length === 0) {
-          this.sharedService.vocableList = [...vocableList];
-          this.vocableList = this.sharedService.vocableList;
-          this.startMultipleChoice(false);
-        }
+        this.sharedService.vocableList = [...vocableList];
+        this.vocableList = this.sharedService.vocableList;
+        console.log('hallo');
+
+        this.startMultipleChoice(false);
       });
   }
 
