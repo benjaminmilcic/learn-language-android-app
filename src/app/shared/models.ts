@@ -21,3 +21,11 @@ export class MyVocable {
         public audio: string
     ) { }
 }
+
+export interface Wordlist {
+    name: string,
+    items: {
+        german: string,
+        croatian:string
+    }[]
+}

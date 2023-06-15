@@ -9,12 +9,14 @@ import { CategoriesComponent } from '../../components/categories/categories.comp
 import { OptionsComponent } from '../../components/options/options.component';
 import { PracticeComponent } from '../../components/practice/practice.component';
 import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
+import { CustomWordlistsComponent } from 'src/app/components/custom-wordlists/custom-wordlists.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, HomePageRoutingModule],
   declarations: [
     HomePage,
     CategoriesComponent,
+    CustomWordlistsComponent,
     OptionsComponent,
     PracticeComponent,
     ToolbarComponent

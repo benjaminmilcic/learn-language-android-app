@@ -43,7 +43,9 @@
       </ion-row>
       <ion-row *ngFor="let item of notes">
         <ion-col size-xl="6" offset-xl="3">
-          <ion-button>{{item}}</ion-button>
+          <ion-button (click)="onSelectWord(item.word,item.language)"
+            >{{item.word}} - {{item.language}}</ion-button
+          >
         </ion-col>
       </ion-row>
     </ion-grid>

@@ -7,6 +7,7 @@ import { MyVocable } from 'src/app/shared/models';
 import { SharedService } from 'src/app/shared/shared.service';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 import { CategoryService } from 'src/app/shared/category.service';
+import { WordlistService } from 'src/app/shared/wordlist.service';
 
 @Component({
   selector: 'app-practice',
@@ -28,6 +29,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
   firstPlay: boolean;
 
   categorySelectSubscription: Subscription;
+  wordlistSelectSubscription: Subscription;
   vocableList: MyVocable[] = [];
 
   wordListForButtons: string[] = [];
@@ -52,6 +54,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
 
   constructor(
     public databaseService: DatabaseService,
+    public wordlistService: WordlistService,
     private sharedService: SharedService,
     private favoriteService: FavoriteService,
     private categoryService: CategoryService
@@ -67,9 +70,23 @@ export class PracticeComponent implements OnInit, OnDestroy {
     this.categorySelectSubscription =
       this.databaseService.categorySelectSubject.subscribe((category) => {
         this.categoryService.titleAddon =
-          'Kategorie: ' + this.databaseService.categories[category];
+          this.databaseService.categories[category];
         this.sharedService.vocableList =
           this.databaseService.getVocableList(category);
+        this.vocableList = this.sharedService.vocableList;
+
+        // this code ist for testing... it reduces the vocableList to 2 Elements
+        // this.vocableList.splice(2, this.vocableList.length - 2);
+
+        this.startMultipleChoice(false);
+      });
+
+    this.wordlistSelectSubscription =
+      this.wordlistService.wordlistSelectSubject.subscribe((wordlist) => {
+        this.categoryService.titleAddon =
+          this.wordlistService.wordlist[wordlist].name;
+        this.sharedService.vocableList =
+          this.wordlistService.getVocableList(wordlist);
         this.vocableList = this.sharedService.vocableList;
 
         // this code ist for testing... it reduces the vocableList to 2 Elements
@@ -264,12 +281,21 @@ export class PracticeComponent implements OnInit, OnDestroy {
   }
 
   onPlayAudio() {
+    // this.playAudio.src =
+    //   this.audioPath +
+    //   this.audioLanguage +
+    //   '/' +
+    //   this.wordToPractice.audio +
+    //   '.mp3';
+
+    const playLanguage = this.otherLanguage === 'german' ? 'de-de' : 'hr-hr';
+    
     this.playAudio.src =
-      this.audioPath +
-      this.audioLanguage +
-      '/' +
-      this.wordToPractice.audio +
-      '.mp3';
+      'https://api.voicerss.org/?key=5cde9db8cff64cc2b675b76dfcadb68f&r=-3&hl=' +
+      playLanguage +
+      '&src=' +
+      this.wordToPractice[this.otherLanguage];
+    
     this.playAudio.play();
   }
 

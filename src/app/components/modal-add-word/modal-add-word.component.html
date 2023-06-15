@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onCancel()">Abbrechen</ion-button>
+    </ion-buttons>
+    <ion-title style="text-align: center">Neu</ion-title>
+    <ion-buttons slot="end">
+      <ion-button [disabled]="translationRef.invalid" (click)="onConfirm()" [strong]="true">Hinzufügen</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item lines="none"> {{ word }} - {{ language }} </ion-item>
+  <ion-item fill="outline">
+    <ion-label position="floating">{{ otherLanguage }}</ion-label>
+    <ion-input
+      required
+      [(ngModel)]="translation"
+      #translationRef="ngModel"
+    ></ion-input>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item lines="none">
+            <ion-select
+              [(ngModel)]="selectedWordlist"
+              placeholder="Wortliste auswählen"
+            >
+              <ion-select-option
+                *ngFor="let options of wordlistService.wordlist"
+                [value]="options.name"
+                >{{ options.name }}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col><ion-button (click)="onAddWordlist()">+</ion-button></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

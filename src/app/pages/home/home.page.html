@@ -7,7 +7,18 @@
         <ion-col size-xl="6" offset-xl="3">
           <app-practice></app-practice>
           <app-options></app-options>
-          <app-categories></app-categories>
+          <div class="wordlists">
+            <app-categories *ngIf="wordlistMode==='categories'"></app-categories>
+            <app-custom-wordlists *ngIf="wordlistMode==='custom'"></app-custom-wordlists>
+            <ion-segment mode="ios" [(ngModel)]="wordlistMode">
+              <ion-segment-button value="categories">
+                <ion-label>Kategorien</ion-label>
+              </ion-segment-button>
+              <ion-segment-button value="custom">
+                <ion-label>Eigene Wortlisten</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
