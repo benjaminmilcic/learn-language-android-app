@@ -40,6 +40,8 @@ export class CategoriesComponent implements AfterViewInit, OnInit {
     let firstChip = <IonChip>this.chipList.nativeElement.children[0];
     firstChip.color = 'danger';
     this.selectedChip = firstChip;
+    this.databaseService.categorySelectSubject.next(0);
+    this.sharedService.allDoneSubject.next(false);
   }
 
   onSelectChip(chip: IonChip, index: number) {

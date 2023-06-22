@@ -84,7 +84,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
     this.wordlistSelectSubscription =
       this.wordlistService.wordlistSelectSubject.subscribe((wordlist) => {
         this.categoryService.titleAddon =
-          this.wordlistService.wordlist[wordlist].name;
+          this.wordlistService.wordlists[wordlist].name;
         this.sharedService.vocableList =
           this.wordlistService.getVocableList(wordlist);
         this.vocableList = this.sharedService.vocableList;
@@ -289,13 +289,13 @@ export class PracticeComponent implements OnInit, OnDestroy {
     //   '.mp3';
 
     const playLanguage = this.otherLanguage === 'german' ? 'de-de' : 'hr-hr';
-    
+
     this.playAudio.src =
       'https://api.voicerss.org/?key=5cde9db8cff64cc2b675b76dfcadb68f&r=-3&hl=' +
       playLanguage +
       '&src=' +
       this.wordToPractice[this.otherLanguage];
-    
+
     this.playAudio.play();
   }
 

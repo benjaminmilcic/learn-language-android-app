@@ -6,13 +6,13 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class WordlistService {
-  public wordlist: Wordlist[] = [];
+  public wordlists: Wordlist[] = [];
 
-  public wordlistSelectSubject = new Subject<number>;
+  public wordlistSelectSubject = new Subject<number>();
 
   constructor() {
     if (localStorage.getItem('wordlists')) {
-      this.wordlist = JSON.parse(localStorage.getItem('wordlists'));
+      this.wordlists = JSON.parse(localStorage.getItem('wordlists'));
     }
   }
 
@@ -20,13 +20,13 @@ export class WordlistService {
     let vocableList: MyVocable[] = [];
     for (
       let vocable = 0;
-      vocable < this.wordlist[wordlist].items.length;
+      vocable < this.wordlists[wordlist].items.length;
       vocable++
     ) {
       vocableList.push(
         new MyVocable(
-          this.wordlist[wordlist].items[vocable].croatian,
-          this.wordlist[wordlist].items[vocable].german,
+          this.wordlists[wordlist].items[vocable].croatian,
+          this.wordlists[wordlist].items[vocable].german,
           '007'
         )
       );

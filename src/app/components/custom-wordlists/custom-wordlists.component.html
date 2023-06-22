@@ -1,11 +1,15 @@
 <div class="ion-padding">
+  <div class="editWordlistButton">
+    <ion-button (click)="oneditWordlists()" size="small">Wortlisten bearbeiten</ion-button>
+  </div>
+  
   <ion-text class="ion-text-center">
     <p>Wähle eine Wortliste:</p>
   </ion-text>
   <div class="ion-text-center" #chipList>
     <ion-chip
       #chip
-      *ngFor="let wordlist of wordlistService.wordlist; let i=index;"
+      *ngFor="let wordlist of wordlistService.wordlists; let i=index;"
       color = 'primary'
       (click)="onSelectChip(chip,i)">
       {{wordlist.name}}

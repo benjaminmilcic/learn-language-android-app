@@ -1,15 +1,13 @@
 <!-- <app-menu></app-menu> -->
 <div class="ion-page" id="main-content">
-  <app-toolbar></app-toolbar>
+  <!-- <app-toolbar [subTitle]="true" ></app-toolbar> -->
   <ion-content>
     <ion-grid>
       <ion-row>
         <ion-col size-xl="6" offset-xl="3">
           <app-practice></app-practice>
-          <app-options></app-options>
+          <app-options *ngIf="wordlistMode==='categories'"></app-options>
           <div class="wordlists">
-            <app-categories *ngIf="wordlistMode==='categories'"></app-categories>
-            <app-custom-wordlists *ngIf="wordlistMode==='custom'"></app-custom-wordlists>
             <ion-segment mode="ios" [(ngModel)]="wordlistMode">
               <ion-segment-button value="categories">
                 <ion-label>Kategorien</ion-label>
@@ -18,6 +16,8 @@
                 <ion-label>Eigene Wortlisten</ion-label>
               </ion-segment-button>
             </ion-segment>
+            <app-categories *ngIf="wordlistMode==='categories'"></app-categories>
+            <app-custom-wordlists *ngIf="wordlistMode==='custom'"></app-custom-wordlists>
           </div>
         </ion-col>
       </ion-row>

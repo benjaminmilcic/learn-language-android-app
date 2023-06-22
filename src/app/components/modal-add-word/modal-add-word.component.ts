@@ -32,7 +32,7 @@ export class ModalAddWordComponent implements OnInit {
   }
 
   onConfirm() {
-    let index = this.wordlistService.wordlist
+    let index = this.wordlistService.wordlists
       .map((wordlist) => {
         return wordlist.name;
       })
@@ -42,15 +42,15 @@ export class ModalAddWordComponent implements OnInit {
       const german = this.language === '🇩🇪' ? this.word : this.translation;
       const croatian = this.language === '🇩🇪' ? this.translation : this.word;
 
-      this.wordlistService.wordlist[index].items.push({
+      this.wordlistService.wordlists[index].items.push({
         german: german,
         croatian: croatian,
       });
     }
-    
+
     localStorage.setItem(
       'wordlists',
-      JSON.stringify(this.wordlistService.wordlist)
+      JSON.stringify(this.wordlistService.wordlists)
     );
 
     this.modalCtrl.dismiss(this.word, 'confirm');
@@ -79,14 +79,14 @@ export class ModalAddWordComponent implements OnInit {
     const { data, role } = await alert.onDidDismiss();
 
     if (role === 'confirm') {
-      this.wordlistService.wordlist.push({
+      this.wordlistService.wordlists.push({
         name: data.values.wordlist,
         items: [],
       });
       this.selectedWordlist = data.values.wordlist;
       localStorage.setItem(
         'wordlists',
-        JSON.stringify(this.wordlistService.wordlist)
+        JSON.stringify(this.wordlistService.wordlists)
       );
     }
   }

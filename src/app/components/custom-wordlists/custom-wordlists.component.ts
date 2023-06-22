@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { IonChip } from '@ionic/angular';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { IonChip, ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/shared.service';
 import { WordlistService } from 'src/app/shared/wordlist.service';
+import { EditWordlistsComponent } from '../edit-wordlists/edit-wordlists.component';
 
 @Component({
   selector: 'app-custom-wordlists',
@@ -8,17 +11,56 @@ import { WordlistService } from 'src/app/shared/wordlist.service';
   styleUrls: ['./custom-wordlists.component.css'],
 })
 export class CustomWordlistsComponent implements OnInit {
-  constructor(public wordlistService: WordlistService) {}
+  @ViewChild('chipList') chipList: ElementRef;
+  selectedChip: IonChip;
 
-  ngOnInit() {}
+  allDoneSubscription: Subscription;
+
+  constructor(
+    public wordlistService: WordlistService,
+    private sharedService: SharedService,
+    private modalController: ModalController
+  ) {}
+
+  ngOnInit() {
+    this.allDoneSubscription = this.sharedService.allDoneSubject.subscribe(
+      (data) => {
+        if (data === true) {
+          this.selectedChip.color = 'primary';
+        }
+      }
+    );
+  }
+
+  ngAfterViewInit(): void {
+    if (this.selectedChip) {
+      this.selectedChip.color = 'primary';
+    }
+    let firstChip = <IonChip>this.chipList.nativeElement.children[0];
+    firstChip.color = 'danger';
+    this.selectedChip = firstChip;
+    this.wordlistService.wordlistSelectSubject.next(0);
+    this.sharedService.allDoneSubject.next(false);
+  }
 
   onSelectChip(chip: IonChip, index: number) {
-    // if (this.selectedChip) {
-    //   this.selectedChip.color = 'primary';
-    // }
-    // chip.color = 'danger';
-    // this.selectedChip = chip;
+    if (this.selectedChip) {
+      this.selectedChip.color = 'primary';
+    }
+    chip.color = 'danger';
+    this.selectedChip = chip;
     this.wordlistService.wordlistSelectSubject.next(index);
-    // this.sharedService.allDoneSubject.next(false);
+    this.sharedService.allDoneSubject.next(false);
+  }
+
+  async oneditWordlists() {
+    const modal = await this.modalController.create({
+      component: EditWordlistsComponent,
+    });
+    modal.present();
+
+    modal.onDidDismiss().then(() => {
+      this.ngAfterViewInit();
+    });
   }
 }

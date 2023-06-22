@@ -1,11 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="onCancel()">Abbrechen</ion-button>
     </ion-buttons>
     <ion-title style="text-align: center">Neu</ion-title>
     <ion-buttons slot="end">
-      <ion-button [disabled]="translationRef.invalid" (click)="onConfirm()" [strong]="true">Hinzufügen</ion-button>
+      <ion-button
+        [disabled]="translationRef.invalid || wordlistRef.invalid"
+        (click)="onConfirm()"
+        [strong]="true"
+        >Hinzufügen</ion-button
+      >
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -21,15 +26,17 @@
   </ion-item>
   <ion-grid>
     <ion-row>
-      <ion-col>
+      <ion-col size="7">
         <ion-list>
           <ion-item lines="none">
             <ion-select
+              required
               [(ngModel)]="selectedWordlist"
+              #wordlistRef="ngModel"
               placeholder="Wortliste auswählen"
             >
               <ion-select-option
-                *ngFor="let options of wordlistService.wordlist"
+                *ngFor="let options of wordlistService.wordlists"
                 [value]="options.name"
                 >{{ options.name }}</ion-select-option
               >
@@ -37,7 +44,11 @@
           </ion-item>
         </ion-list>
       </ion-col>
-      <ion-col><ion-button (click)="onAddWordlist()">+</ion-button></ion-col>
+      <ion-col size="5">
+        <ion-button class="ion-text-wrap" (click)="onAddWordlist()"
+          >Neue Wortliste</ion-button
+        >
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

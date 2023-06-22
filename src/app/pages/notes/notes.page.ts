@@ -52,6 +52,11 @@ export class NotesPage implements ViewWillEnter {
     this.note = '';
   }
 
+  onDeleteNote(index: number) {
+    this.notes.splice(index, 1);
+    localStorage.setItem('notes', JSON.stringify(this.notes));
+  }
+
   async onSelectWord(word: string, language: string) {
     const modal = await this.modalCtrl.create({
       component: ModalAddWordComponent,

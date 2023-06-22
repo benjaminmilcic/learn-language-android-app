@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CategoryService } from 'src/app/shared/category.service';
 
 @Component({
@@ -7,5 +7,7 @@ import { CategoryService } from 'src/app/shared/category.service';
   styleUrls: ['./toolbar.component.css'],
 })
 export class ToolbarComponent {
+  @Input() subTitle: boolean;
+
   constructor(public categoryService: CategoryService) {}
 }
