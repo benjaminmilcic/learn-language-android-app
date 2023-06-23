@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-wordlists',
   templateUrl: './wordlists.page.html',
   styleUrls: ['./wordlists.page.scss'],
 })
-export class WordlistsPage implements OnInit {
+export class WordlistsPage {
   wordlistMode: 'categories' | 'custom' = 'categories';
 
-  constructor() {}
-
-  ngOnInit() {}
 }

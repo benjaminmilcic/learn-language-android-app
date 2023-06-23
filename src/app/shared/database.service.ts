@@ -21,27 +21,35 @@ export class DatabaseService {
     let fromInternet = false;
 
     if (fromInternet) {
-      this.http
-        .get<Chapter[]>(
-          'https://vocabularyinputapp-default-rtdb.europe-west1.firebasedatabase.app/exampleDatabase.json'
-        )
-        .subscribe(
-          (data) => {
-            this.database = data;
-          },
-          (error) => {
-            throw new Error(error);
-          },
-          () => {
-            this.categories = this.getCategoyList();
-            this.databaseLoaded = true;
-          }
-        );
+      this.fetchDataFromInternet();
     } else {
-      this.database = <Chapter[]>databaseJson;
-      this.categories = this.getCategoyList();
-      this.databaseLoaded = true;
+      this.fetchDataFromAssets();
     }
+  }
+
+  private fetchDataFromInternet() {
+    this.http
+      .get<Chapter[]>(
+        'https://vocabularyinputapp-default-rtdb.europe-west1.firebasedatabase.app/exampleDatabase.json'
+      )
+      .subscribe(
+        (data) => {
+          this.database = data;
+        },
+        (error) => {
+          throw new Error(error);
+        },
+        () => {
+          this.categories = this.getCategoyList();
+          this.databaseLoaded = true;
+        }
+      );
+  }
+
+  private fetchDataFromAssets() {
+    this.database = <Chapter[]>databaseJson;
+    this.categories = this.getCategoyList();
+    this.databaseLoaded = true;
   }
 
   private getCategoyList() {

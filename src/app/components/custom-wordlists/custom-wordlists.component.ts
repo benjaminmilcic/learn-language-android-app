@@ -3,7 +3,6 @@ import { IonChip, ModalController, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/shared/shared.service';
 import { WordlistService } from 'src/app/shared/wordlist.service';
-import { EditWordlistsComponent } from '../edit-wordlists/edit-wordlists.component';
 
 @Component({
   selector: 'app-custom-wordlists',
@@ -53,16 +52,5 @@ export class CustomWordlistsComponent implements OnInit {
     this.wordlistService.wordlistSelectSubject.next(index);
     this.sharedService.allDoneSubject.next(false);
     this.navCtrl.back();
-  }
-
-  async oneditWordlists() {
-    const modal = await this.modalController.create({
-      component: EditWordlistsComponent,
-    });
-    modal.present();
-
-    modal.onDidDismiss().then(() => {
-      this.ngAfterViewInit();
-    });
   }
 }

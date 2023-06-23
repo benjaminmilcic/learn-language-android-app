@@ -5,10 +5,11 @@
   <div class="ion-text-center" #chipList>
     <ion-chip
       #chip
-      *ngFor="let category of databaseService.categories; let i=index;"
-      color = 'primary'
-      (click)="onSelectChip(chip,i)">
-      {{category}}
+      *ngFor="let category of databaseService.categories; let i = index"
+      color="primary"
+      (click)="onSelectChip(chip, i)"
+    >
+      {{ category }}
     </ion-chip>
   </div>
 </div>

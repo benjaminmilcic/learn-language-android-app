@@ -19,8 +19,6 @@ export class EditWordlistsPage implements OnInit  {
     this.selectedWordlist = this.wordlistService.wordlists[0].name;
   }
 
-  
-
   onChangeWordlist() {
     this.wordlistIndex = this.wordlistService.wordlists
       .map((wordlist) => {
