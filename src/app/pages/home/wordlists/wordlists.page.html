@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Zurück"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Wortlisten</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment [(ngModel)]="wordlistMode">
+    <ion-segment-button value="categories">
+      <ion-label>Kategorien</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="custom">
+      <ion-label>Eigene Wortlisten</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <app-categories *ngIf="wordlistMode === 'categories'"></app-categories>
+  <app-custom-wordlists
+    *ngIf="wordlistMode === 'custom'"
+  ></app-custom-wordlists>
+</ion-content>

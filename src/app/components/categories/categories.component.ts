@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { IonChip } from '@ionic/angular';
+import { IonChip, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { DatabaseService } from 'src/app/shared/database.service';
 import { SharedService } from 'src/app/shared/shared.service';
@@ -23,7 +23,8 @@ export class CategoriesComponent implements AfterViewInit, OnInit {
 
   constructor(
     public databaseService: DatabaseService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private navCtrl: NavController
   ) {}
 
   ngOnInit(): void {
@@ -52,5 +53,6 @@ export class CategoriesComponent implements AfterViewInit, OnInit {
     this.selectedChip = chip;
     this.databaseService.categorySelectSubject.next(index);
     this.sharedService.allDoneSubject.next(false);
+    this.navCtrl.back();
   }
 }

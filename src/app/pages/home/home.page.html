@@ -1,24 +1,19 @@
 <!-- <app-menu></app-menu> -->
 <div class="ion-page" id="main-content">
-  <!-- <app-toolbar [subTitle]="true" ></app-toolbar> -->
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Wortliste: {{this.categoryService.titleAddon}} </ion-title>
+      <ion-buttons slot="end">
+        <ion-button routerLink="wordlists" (click)="onSelectWordlist()"> Auswählen </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
   <ion-content>
     <ion-grid>
       <ion-row>
         <ion-col size-xl="6" offset-xl="3">
           <app-practice></app-practice>
           <app-options *ngIf="wordlistMode==='categories'"></app-options>
-          <div class="wordlists">
-            <ion-segment mode="ios" [(ngModel)]="wordlistMode">
-              <ion-segment-button value="categories">
-                <ion-label>Kategorien</ion-label>
-              </ion-segment-button>
-              <ion-segment-button value="custom">
-                <ion-label>Eigene Wortlisten</ion-label>
-              </ion-segment-button>
-            </ion-segment>
-            <app-categories *ngIf="wordlistMode==='categories'"></app-categories>
-            <app-custom-wordlists *ngIf="wordlistMode==='custom'"></app-custom-wordlists>
-          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
