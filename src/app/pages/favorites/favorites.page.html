@@ -2,22 +2,30 @@
   <ion-header>
     <ion-toolbar color="primary">
       <ion-title>Favoriten</ion-title>
-      <ion-buttons *ngIf="!allDone" slot="end">
+      <ion-buttons *ngIf="favoriteService.favoriteList.length > 0" slot="end">
         <ion-button routerLink="favorites-list"> Favoritenliste </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-grid>
-      <ion-row>
+    <ion-grid style="height: 100%">
+      <!-- for app-multiple-choice-favorite to be height=100% -->
+      <ion-row style="height: 100%">
+        <!-- for app-multiple-choice-favorite to be height=100% -->
         <ion-col size-xl="6" offset-xl="3">
           <app-multiple-choice-favorite
-            *ngIf="!allDone"
+            *ngIf="!allDone && favoriteService.favoriteList.length > 0"
           ></app-multiple-choice-favorite>
-          <div>
-            
+          <div
+            *ngIf="favoriteService.favoriteList.length===0"
+            class="noFavorites"
+          >
+            Keine Favoriten ausgewählt
           </div>
-          <div class="again" *ngIf="allDone">
+          <div
+            class="again"
+            *ngIf="allDone && favoriteService.favoriteList.length > 0"
+          >
             <ion-button (click)="onRepeat()"
               ><ion-icon name="refresh-circle"></ion-icon
               >&nbsp;Again</ion-button

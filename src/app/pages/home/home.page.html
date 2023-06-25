@@ -8,10 +8,16 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-grid>
-      <ion-row>
+    <ion-grid style="height: 100%">
+      <!-- for app-practice to be height=100% -->
+      <ion-row style="height: 100%">
+        <!-- for app-practice to be height=100% -->
         <ion-col size-xl="6" offset-xl="3">
           <app-practice></app-practice>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-xl="6" offset-xl="3">
           <app-options *ngIf="wordlistMode==='categories'"></app-options>
         </ion-col>
       </ion-row>

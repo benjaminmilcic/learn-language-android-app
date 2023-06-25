@@ -8,25 +8,29 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <ion-item-sliding
+  <ion-grid>
+    <ion-row>
+      <ion-col>🇩🇪 </ion-col>
+      <ion-col>🇭🇷 </ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+    <ion-row
       *ngFor="let vocable of favoriteService.favoriteList; let i = index"
     >
-      <ion-item-options side="end">
-        <ion-item-option color="danger" (click)="onRemoveFavorite(i)">
-          <ion-icon slot="icon-only" name="trash"></ion-icon>
-        </ion-item-option>
-      </ion-item-options>
-
-      <ion-item>
-        <ion-label>{{ vocable.german }}</ion-label>
-      </ion-item>
-    </ion-item-sliding>
-  </ion-list>
-  <ion-button
-    (click)="onSaveFavToWordlist()"
-    class="ion-text-wrap"
-    expand="block"
-    >Favoritenliste in Wortliste speichern und dann leeren</ion-button
-  >
+      <ion-col>{{ vocable.german }}</ion-col>
+      <ion-col>{{ vocable.croatian }}</ion-col>
+      <ion-col size="1"
+        ><ion-icon
+          (click)="onRemoveFavorite(i)"
+          color="danger"
+          name="trash"
+        ></ion-icon
+      ></ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="favToWordlistButton">
+    <ion-button (click)="onSaveFavToWordlist()" class="ion-text-wrap"
+      >Favoritenliste in Wortliste speichern und dann leeren</ion-button
+    >
+  </div>
 </ion-content>

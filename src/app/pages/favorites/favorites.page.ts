@@ -15,7 +15,7 @@ export class FavoritesPage implements OnInit, ViewWillEnter {
 
   constructor(
     private sharedService: SharedService,
-    private favoriteService: FavoriteService
+    public favoriteService: FavoriteService
   ) {}
 
   ngOnInit(): void {

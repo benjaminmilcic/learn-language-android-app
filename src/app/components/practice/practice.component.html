@@ -1,5 +1,6 @@
-<ion-card *ngIf="!allDone">
-  <ion-segment [(ngModel)]="inputMode">
+<div class="wrapper" *ngIf="!allDone">
+  <div>
+  <ion-segment mode="md" [(ngModel)]="inputMode">
     <ion-segment-button value="multipleChoice">
       <ion-label>Multiple Choice</ion-label>
     </ion-segment-button>
@@ -9,7 +10,7 @@
   </ion-segment>
 
   <ion-card-header>
-    <ion-card-subtitle class="ion-text-center">
+    <ion-card-subtitle class="ion-text-center header">
       Noch&nbsp;{{ vocableList.length }}&nbsp;
       <span *ngIf="vocableList.length > 1">Wörter</span>
       <span *ngIf="vocableList.length === 1">Wort</span>
@@ -149,33 +150,33 @@
       </ion-grid>
     </div>
   </ion-card-content>
-  <ion-row>
-    <ion-col size="3">
+  </div>
+  <div>
+    <ion-row>
+    <ion-col offset="2" size="2">
       <ion-button
-        color="light"
-        class="ion-padding"
-        size="large"
+        fill="clear"
         (click)="onToggleLanguage()"
       >
         <ion-label>{{ languageFlag }}</ion-label>
       </ion-button>
     </ion-col>
-    <ion-col size="9">
-      <ion-segment
+    <ion-col class="mode" size="6">
+      <ion-segment mode="ios"
         color="secondary"
         [value]="getActiveModeSegment()"
         #modeSegment
         (ionChange)="onChangeMode(modeSegment)"
       >
         <ion-segment-button value="text">
-          <ion-label>Text Mode</ion-label>
           <ion-icon name="text"></ion-icon>
         </ion-segment-button>
         <ion-segment-button value="audio">
-          <ion-label>Audio Mode</ion-label>
           <ion-icon name="musical-notes"></ion-icon>
         </ion-segment-button>
       </ion-segment>
     </ion-col>
   </ion-row>
-</ion-card>
+  </div>
+  
+</div>

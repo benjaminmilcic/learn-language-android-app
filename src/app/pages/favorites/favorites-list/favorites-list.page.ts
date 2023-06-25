@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { FavoriteService } from 'src/app/shared/favorite.service';
 import { SharedService } from 'src/app/shared/shared.service';
 import { WordlistService } from 'src/app/shared/wordlist.service';
@@ -14,16 +14,17 @@ export class FavoritesListPage implements OnInit {
     public favoriteService: FavoriteService,
     private sharedService: SharedService,
     private alertController: AlertController,
-    private wordlistService: WordlistService
+    private wordlistService: WordlistService,
+    private navController:NavController
   ) {}
 
   ngOnInit(): void {}
 
   onRemoveFavorite(index: number) {
     this.favoriteService.removeFavorite(index);
-    this.sharedService.loadFavoriteListSubject.next(
-      this.favoriteService.favoriteList
-    );
+    if (this.favoriteService.favoriteList.length===0) {
+      this.navController.navigateBack('/favorites');
+    }
   }
 
   async onSaveFavToWordlist() {

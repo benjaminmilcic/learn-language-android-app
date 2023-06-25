@@ -1,10 +1,3 @@
-ion-segment-button {
-  --background-checked: transparent;
-  --background: var(--ion-color-light);
-  --color: var(--ion-color-medium);
-  --indicator-color: transparent;
-}
-
 .right {
   background-color: lightgreen;
 }
@@ -28,4 +21,21 @@ ion-segment-button {
 
 .word-input.wrong {
   border: solid 3px lightcoral;
+}
+
+.mode {
+  display: flex;
+  align-items: center;
+}
+
+.wrapper{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0px 10px;
+}
+
+.header {
+  margin-top: 20px;
 }
