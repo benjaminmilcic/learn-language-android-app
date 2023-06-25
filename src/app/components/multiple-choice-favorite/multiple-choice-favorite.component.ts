@@ -246,12 +246,21 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   }
 
   async onPlayAudio() {
+    // this.playAudio.src =
+    //   this.audioPath +
+    //   this.audioLanguage +
+    //   '/' +
+    //   this.wordToPractice.audio +
+    //   '.mp3';
+
+    const playLanguage = this.otherLanguage === 'german' ? 'de-de' : 'hr-hr';
+
     this.playAudio.src =
-      this.audioPath +
-      this.audioLanguage +
-      '/' +
-      this.wordToPractice.audio +
-      '.mp3';
+      'https://api.voicerss.org/?key=5cde9db8cff64cc2b675b76dfcadb68f&r=-3&hl=' +
+      playLanguage +
+      '&src=' +
+      this.wordToPractice[this.otherLanguage];
+
     this.playAudio.play();
   }
 
