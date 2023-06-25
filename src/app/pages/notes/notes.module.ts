@@ -7,10 +7,9 @@ import { IonicModule } from '@ionic/angular';
 import { NotesPageRoutingModule } from './notes-routing.module';
 
 import { NotesPage } from './notes.page';
-import { ModalAddWordComponent } from 'src/app/components/modal-add-word/modal-add-word.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, NotesPageRoutingModule],
-  declarations: [NotesPage, ModalAddWordComponent],
+  declarations: [NotesPage],
 })
 export class NotesPageModule {}

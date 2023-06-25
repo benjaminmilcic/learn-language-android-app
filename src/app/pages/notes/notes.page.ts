@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
-import { ModalController, ViewWillEnter } from '@ionic/angular';
-import { ModalAddWordComponent } from 'src/app/components/modal-add-word/modal-add-word.component';
+import { NavController, ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-notes',
@@ -17,7 +17,7 @@ export class NotesPage implements ViewWillEnter {
     language: string;
   }[] = [];
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(private navCtrl: NavController, private route: ActivatedRoute) {}
 
   ionViewWillEnter() {
     if (localStorage.getItem('notes')) {
@@ -58,21 +58,12 @@ export class NotesPage implements ViewWillEnter {
   }
 
   async onSelectWord(word: string, language: string) {
-    const modal = await this.modalCtrl.create({
-      component: ModalAddWordComponent,
-      componentProps: { word, language },
-    });
-    modal.present();
-
-    const { data, role } = await modal.onDidDismiss();
-    if (role === 'confirm') {
-      const wordToDelete = this.notes
-        .map((note) => {
-          return note.word;
-        })
-        .indexOf(data);
-      this.notes.splice(wordToDelete, 1);
-      localStorage.setItem('notes', JSON.stringify(this.notes));
-    }
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        word: word,
+        language: language,
+      },
+    };
+    this.navCtrl.navigateForward(['/notes/add-word'], navigationExtras);
   }
 }

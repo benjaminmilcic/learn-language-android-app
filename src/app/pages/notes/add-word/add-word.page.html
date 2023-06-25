@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-button (click)="onCancel()">Abbrechen</ion-button>
+      <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title style="text-align: center">Neu</ion-title>
+    <ion-title>Neues Wort</ion-title>
     <ion-buttons slot="end">
       <ion-button
         [disabled]="translationRef.invalid || wordlistRef.invalid"
@@ -14,6 +14,7 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
   <ion-item lines="none"> {{ word }} - {{ language }} </ion-item>
   <ion-item fill="outline">

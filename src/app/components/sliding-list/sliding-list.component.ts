@@ -9,8 +9,7 @@ import { SharedService } from 'src/app/shared/shared.service';
   styleUrls: ['./sliding-list.component.css'],
 })
 export class SlidingListComponent implements OnInit {
-  allDone = false;
-  allDoneFavoriteSubscription: Subscription;
+  
 
   constructor(
     public favoriteService: FavoriteService,
@@ -18,10 +17,7 @@ export class SlidingListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.allDoneFavoriteSubscription =
-      this.sharedService.allDoneFavoriteSubject.subscribe((data) => {
-        this.allDone = data;
-      });
+    
   }
 
   onRemoveFavorite(index: number) {

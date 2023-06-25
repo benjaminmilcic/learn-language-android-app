@@ -1,15 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController, NavController, ViewWillEnter } from '@ionic/angular';
 import { WordlistService } from 'src/app/shared/wordlist.service';
 
 @Component({
-  selector: 'app-modal-add-word',
-  templateUrl: './modal-add-word.component.html',
-  styleUrls: ['./modal-add-word.component.scss'],
+  selector: 'app-add-word',
+  templateUrl: './add-word.page.html',
+  styleUrls: ['./add-word.page.scss'],
 })
-export class ModalAddWordComponent implements OnInit {
-  @Input() word: string;
-  @Input() language: string;
+export class AddWordPage implements ViewWillEnter {
+  word: string;
+  language: string;
 
   otherLanguage: string;
 
@@ -17,21 +18,33 @@ export class ModalAddWordComponent implements OnInit {
 
   selectedWordlist;
 
+  notes: {
+    word: string;
+    language: string;
+  }[] = [];
+
   constructor(
-    private modalCtrl: ModalController,
+    private route: ActivatedRoute,
     private alertController: AlertController,
-    public wordlistService: WordlistService
+    public wordlistService: WordlistService,
+    private navCtrl: NavController
   ) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.route.queryParams.subscribe((params) => {
+      this.word = params['word'];
+      this.language = params['language'];
+    });
     this.otherLanguage = this.language === '🇭🇷' ? '🇩🇪' : '🇭🇷';
   }
 
-  onCancel() {
-    this.modalCtrl.dismiss();
+  onConfirm() {
+    this.addWordToWordlist();
+    this.deleteWordFromNotes();
+    this.navCtrl.navigateBack(['/notes']);
   }
 
-  onConfirm() {
+  addWordToWordlist() {
     let index = this.wordlistService.wordlists
       .map((wordlist) => {
         return wordlist.name;
@@ -52,8 +65,17 @@ export class ModalAddWordComponent implements OnInit {
       'wordlists',
       JSON.stringify(this.wordlistService.wordlists)
     );
+  }
 
-    this.modalCtrl.dismiss(this.word, 'confirm');
+  deleteWordFromNotes() {
+    this.notes = JSON.parse(localStorage.getItem('notes'));
+    const wordToDelete = this.notes
+      .map((note) => {
+        return note.word;
+      })
+      .indexOf(this.word);
+    this.notes.splice(wordToDelete, 1);
+    localStorage.setItem('notes', JSON.stringify(this.notes));
   }
 
   async onAddWordlist() {

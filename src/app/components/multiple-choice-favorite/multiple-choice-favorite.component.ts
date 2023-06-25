@@ -15,8 +15,7 @@ import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   inputMode: 'multipleChoice' | 'text' = 'multipleChoice';
 
-  allDone = false;
-  allDoneFavoriteSubscription: Subscription;
+  
 
   playAudio = new Audio();
   audioMode: boolean = false;
@@ -60,10 +59,7 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
     this.vocableList = this.sharedService.vocableList;
     this.startMultipleChoice(false);
 
-    this.allDoneFavoriteSubscription =
-      this.sharedService.allDoneFavoriteSubject.subscribe((data) => {
-        this.allDone = data;
-      });
+   
 
     this.loadFavoriteListSubscription =
       this.sharedService.loadFavoriteListSubject.subscribe((vocableList) => {
@@ -338,8 +334,14 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
     }
   }
 
+  onRepeat() {
+    this.sharedService.allDoneFavoriteSubject.next(false);
+    this.sharedService.loadFavoriteListSubject.next([
+      ...this.favoriteService.favoriteList,
+    ]);
+  }
+
   ngOnDestroy() {
-    this.allDoneFavoriteSubscription.unsubscribe();
     this.loadFavoriteListSubscription.unsubscribe();
   }
 }

@@ -29,4 +29,9 @@ export class FavoriteService {
     this.favoriteList.splice(index, 1);
     localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
   }
+
+  deleteAllFavorites() {
+    this.favoriteList = [];
+    localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList));
+  }
 }

@@ -1,4 +1,4 @@
-<ion-card *ngIf="!allDone">
+<ion-card>
   <ion-segment [(ngModel)]="inputMode">
     <ion-segment-button value="multipleChoice">
       <ion-label>Multiple Choice</ion-label>
@@ -17,7 +17,7 @@
       <ion-row>
         <ion-col size="10">
           <ion-card-title *ngIf="!audioMode" class="title">
-            <ion-grid style="padding-left: 0px;">
+            <ion-grid style="padding-left: 0px">
               <ion-row>
                 <ion-col style="padding-left: 0px" size="auto">{{
                   wordToPractice[otherLanguage]

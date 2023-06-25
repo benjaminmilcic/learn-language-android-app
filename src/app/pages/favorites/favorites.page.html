@@ -2,14 +2,27 @@
   <ion-header>
     <ion-toolbar color="primary">
       <ion-title>Favoriten</ion-title>
+      <ion-buttons *ngIf="!allDone" slot="end">
+        <ion-button routerLink="favorites-list"> Favoritenliste </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <ion-content >
+  <ion-content>
     <ion-grid>
       <ion-row>
         <ion-col size-xl="6" offset-xl="3">
-            <app-multiple-choice-favorite></app-multiple-choice-favorite>
-            <app-sliding-list></app-sliding-list>
+          <app-multiple-choice-favorite
+            *ngIf="!allDone"
+          ></app-multiple-choice-favorite>
+          <div>
+            
+          </div>
+          <div class="again" *ngIf="allDone">
+            <ion-button (click)="onRepeat()"
+              ><ion-icon name="refresh-circle"></ion-icon
+              >&nbsp;Again</ion-button
+            >
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
