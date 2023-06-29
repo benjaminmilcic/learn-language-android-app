@@ -7,12 +7,12 @@ import { WordlistService } from 'src/app/shared/wordlist.service';
   templateUrl: './edit-wordlists.page.html',
   styleUrls: ['./edit-wordlists.page.scss'],
 })
-export class EditWordlistsPage implements OnInit  {
+export class EditWordlistsPage implements OnInit {
   selectedWordlist: string;
   wordlistIndex: number = 0;
   constructor(
     private alertController: AlertController,
-    public wordlistService: WordlistService,
+    public wordlistService: WordlistService
   ) {}
 
   ngOnInit() {
@@ -31,6 +31,7 @@ export class EditWordlistsPage implements OnInit  {
     const alert = await this.alertController.create({
       subHeader: 'Wort löschen?',
       message: 'Achtung! Diese Aktion kann nicht rückgängig gemacht werden.',
+      backdropDismiss: false,
       buttons: [
         {
           text: 'Löschen',
@@ -68,6 +69,7 @@ export class EditWordlistsPage implements OnInit  {
     const alert = await this.alertController.create({
       subHeader: 'Wortliste löschen?',
       message: 'Achtung! Diese Aktion kann nicht rückgängig gemacht werden.',
+      backdropDismiss: false,
       buttons: [
         {
           text: 'Löschen',
@@ -100,10 +102,23 @@ export class EditWordlistsPage implements OnInit  {
     const alert = await this.alertController.create({
       header: 'Neuer Name für Wortliste:',
       subHeader: this.selectedWordlist,
+      backdropDismiss: false,
       buttons: [
         {
           text: 'Umbenennen',
           role: 'confirm',
+          handler: (data) => {
+            if (this.wordlistExist(data.wordlist)) {
+              const input = alert.getElementsByTagName('input')[0];
+              const errorMessage = document.createElement('div');
+              errorMessage.textContent = 'Wortliste existiert bereits';
+              errorMessage.style.color = 'red';
+              input.insertAdjacentElement('afterend', errorMessage);
+              return false;
+            } else {
+              return true;
+            }
+          },
         },
         {
           text: 'Abbrechen',
@@ -133,5 +148,13 @@ export class EditWordlistsPage implements OnInit  {
       this.selectedWordlist =
         this.wordlistService.wordlists[this.wordlistIndex].name;
     }
+  }
+
+  wordlistExist(newWordlistName: string): boolean {
+    return this.wordlistService.wordlists
+      .map((wordlist) => {
+        return wordlist.name;
+      })
+      .includes(newWordlistName);
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import {  NavigationExtras } from '@angular/router';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 import { NavController, ViewWillEnter } from '@ionic/angular';
 
@@ -17,7 +17,7 @@ export class NotesPage implements ViewWillEnter {
     language: string;
   }[] = [];
 
-  constructor(private navCtrl: NavController, private route: ActivatedRoute) {}
+  constructor(private navCtrl: NavController) {}
 
   ionViewWillEnter() {
     if (localStorage.getItem('notes')) {

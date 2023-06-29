@@ -5,15 +5,13 @@ import { FormsModule } from '@angular/forms';
 
 import { FavoritesPageRoutingModule } from './favorites-routing.module';
 import { FavoritesPage } from './favorites.page';
-import { SlidingListComponent } from '../../components/sliding-list/sliding-list.component';
 import { MultipleChoiceFavoriteComponent } from '../../components/multiple-choice-favorite/multiple-choice-favorite.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, FavoritesPageRoutingModule],
   declarations: [
     FavoritesPage,
-    MultipleChoiceFavoriteComponent,
-    SlidingListComponent
+    MultipleChoiceFavoriteComponent
   ],
 })
 export class FavoritesPageModule {}

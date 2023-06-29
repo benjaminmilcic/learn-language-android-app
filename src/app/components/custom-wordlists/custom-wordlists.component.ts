@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { IonChip, ModalController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { IonChip } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/shared/shared.service';
 import { WordlistService } from 'src/app/shared/wordlist.service';
@@ -18,8 +19,7 @@ export class CustomWordlistsComponent implements OnInit {
   constructor(
     public wordlistService: WordlistService,
     private sharedService: SharedService,
-    private modalController: ModalController,
-    private navCtrl: NavController
+    private router:Router
   ) {}
 
   ngOnInit() {
@@ -51,6 +51,6 @@ export class CustomWordlistsComponent implements OnInit {
     this.selectedChip = chip;
     this.wordlistService.wordlistSelectSubject.next(index);
     this.sharedService.allDoneSubject.next(false);
-    this.navCtrl.back();
+    this.router.navigate(['categories']);
   }
 }

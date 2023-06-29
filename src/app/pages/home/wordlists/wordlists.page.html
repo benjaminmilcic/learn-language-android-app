@@ -18,6 +18,11 @@
   </ion-segment>
   <app-categories *ngIf="wordlistMode === 'categories'"></app-categories>
   <app-custom-wordlists
-    *ngIf="wordlistMode === 'custom'"
+    *ngIf="wordlistMode === 'custom' && wordlistService.wordlists.length > 0"
   ></app-custom-wordlists>
+  <p *ngIf="wordlistMode === 'custom' && wordlistService.wordlists.length === 0" class="no-custom-wordlists">
+    Sie haben aktuell keine eigenen Wortlisten.<br /><br />
+    Sie können eigene Wortlisten im Tab "Notizen" erstellen oder ihre Favoriten in eine eigene
+    Wortliste kopieren.
+  </p>
 </ion-content>

@@ -26,6 +26,7 @@
     "@capacitor/haptics": "4.0.1",
     "@capacitor/keyboard": "4.0.1",
     "@capacitor/status-bar": "4.0.1",
+    "@hugotomazi/capacitor-navigation-bar": "^2.0.1",
     "@ionic/angular": "^6.1.9",
     "ionicons": "^6.0.3",
     "jetifier": "^2.0.0",
