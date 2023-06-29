@@ -26,8 +26,7 @@ export class WordlistService {
       vocableList.push(
         new MyVocable(
           this.wordlists[wordlist].items[vocable].croatian,
-          this.wordlists[wordlist].items[vocable].german,
-          '007'
+          this.wordlists[wordlist].items[vocable].german
         )
       );
     }

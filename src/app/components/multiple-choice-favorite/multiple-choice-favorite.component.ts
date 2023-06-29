@@ -15,8 +15,6 @@ import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   inputMode: 'multipleChoice' | 'text' = 'multipleChoice';
 
-  
-
   playAudio = new Audio();
   audioMode: boolean = false;
   audioPath = '/assets/audio/';
@@ -58,8 +56,6 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
     this.sharedService.vocableList = [...this.favoriteService.favoriteList];
     this.vocableList = this.sharedService.vocableList;
     this.startMultipleChoice(false);
-
-   
 
     this.loadFavoriteListSubscription =
       this.sharedService.loadFavoriteListSubject.subscribe((vocableList) => {
@@ -277,14 +273,7 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   }
 
   isFavoriteIconColor(wordToPractice: MyVocable): string {
-    // this.favoriteService.favoriteList.includes(wordToPractice)
-    // does not work, but checking for wordToPractice.audio key works
-
-    if (
-      this.favoriteService.favoriteList
-        .map((word) => word.audio)
-        .includes(wordToPractice.audio)
-    ) {
+    if (this.favoriteService.vocableIsInFavoriteList(wordToPractice)) {
       return 'warning';
     } else {
       return 'default';
@@ -292,14 +281,7 @@ export class MultipleChoiceFavoriteComponent implements OnInit, OnDestroy {
   }
 
   isFavoriteIconName(wordToPractice: MyVocable): string {
-    // this.favoriteService.favoriteList.includes(wordToPractice)
-    // does not work, but checking for wordToPractice.audio key works
-
-    if (
-      this.favoriteService.favoriteList
-        .map((word) => word.audio)
-        .includes(wordToPractice.audio)
-    ) {
+    if (this.favoriteService.vocableIsInFavoriteList(wordToPractice)) {
       return 'star';
     } else {
       return 'star-outline';

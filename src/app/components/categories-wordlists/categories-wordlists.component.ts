@@ -12,11 +12,11 @@ import { DatabaseService } from 'src/app/shared/database.service';
 import { SharedService } from 'src/app/shared/shared.service';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.css'],
+  selector: 'app-categories-wordlists',
+  templateUrl: './categories-wordlists.component.html',
+  styleUrls: ['./categories-wordlists.component.css'],
 })
-export class CategoriesComponent implements AfterViewInit, OnInit {
+export class CategoriesWordlistsComponent implements AfterViewInit, OnInit {
   @ViewChild('chipList') chipList: ElementRef;
   selectedChip: IonChip;
 
@@ -25,7 +25,7 @@ export class CategoriesComponent implements AfterViewInit, OnInit {
   constructor(
     public databaseService: DatabaseService,
     private sharedService: SharedService,
-    private router:Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +54,6 @@ export class CategoriesComponent implements AfterViewInit, OnInit {
     this.selectedChip = chip;
     this.databaseService.categorySelectSubject.next(index);
     this.sharedService.allDoneSubject.next(false);
-    this.router.navigate(['categories'])
+    this.router.navigate(['categories']);
   }
 }

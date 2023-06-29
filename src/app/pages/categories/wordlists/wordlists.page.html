@@ -16,7 +16,7 @@
       <ion-label>Eigene Wortlisten</ion-label>
     </ion-segment-button>
   </ion-segment>
-  <app-categories *ngIf="wordlistMode === 'categories'"></app-categories>
+  <app-categories-wordlists *ngIf="wordlistMode === 'categories'"></app-categories-wordlists>
   <app-custom-wordlists
     *ngIf="wordlistMode === 'custom' && wordlistService.wordlists.length > 0"
   ></app-custom-wordlists>

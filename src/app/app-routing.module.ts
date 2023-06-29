@@ -15,7 +15,7 @@ const routes: Routes = [
       {
         path: 'categories',
         loadChildren: () =>
-          import('./pages/home/home.module').then((m) => m.HomePageModule),
+          import('./pages/categories/categories.module').then((m) => m.CategoriesPageModule),
       },
       {
         path: 'favorites',

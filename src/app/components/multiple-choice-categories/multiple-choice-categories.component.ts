@@ -10,11 +10,11 @@ import { CategoryService } from 'src/app/shared/category.service';
 import { WordlistService } from 'src/app/shared/wordlist.service';
 
 @Component({
-  selector: 'app-practice',
-  templateUrl: './practice.component.html',
-  styleUrls: ['./practice.component.css'],
+  selector: 'app-multiple-choice-categories',
+  templateUrl: './multiple-choice-categories.component.html',
+  styleUrls: ['./multiple-choice-categories.component.css'],
 })
-export class PracticeComponent implements OnInit, OnDestroy {
+export class MultipleChoiceCategoriesComponent implements OnInit, OnDestroy {
   inputMode: 'multipleChoice' | 'text' = 'multipleChoice';
 
   allDone = false;
@@ -312,14 +312,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
   }
 
   isFavoriteIconColor(wordToPractice: MyVocable): string {
-    // this.favoriteService.favoriteList.includes(wordToPractice)
-    // does not work, but checking for wordToPractice.audio key works
-
-    if (
-      this.favoriteService.favoriteList
-        .map((word) => word.audio)
-        .includes(wordToPractice.audio)
-    ) {
+    if (this.favoriteService.vocableIsInFavoriteList(wordToPractice)) {
       return 'warning';
     } else {
       return 'default';
@@ -327,14 +320,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
   }
 
   isFavoriteIconName(wordToPractice: MyVocable): string {
-    // this.favoriteService.favoriteList.includes(wordToPractice)
-    // does not work, but checking for wordToPractice.audio key works
-
-    if (
-      this.favoriteService.favoriteList
-        .map((word) => word.audio)
-        .includes(wordToPractice.audio)
-    ) {
+    if (this.favoriteService.vocableIsInFavoriteList(wordToPractice)) {
       return 'star';
     } else {
       return 'star-outline';
