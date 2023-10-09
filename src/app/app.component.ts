@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SpeechRecognition } from '@capacitor-community/speech-recognition';
 import { NavigationBar } from '@hugotomazi/capacitor-navigation-bar';
+import { StatusBar } from '@capacitor/status-bar';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { NavigationBar } from '@hugotomazi/capacitor-navigation-bar';
 export class AppComponent {
   constructor() {
     SpeechRecognition.requestPermissions();
-    NavigationBar.setColor({ color: '#FFFFFF', darkButtons: true });
+    // NavigationBar.setColor({ color: '#FFFFFF', darkButtons: true });
+    // StatusBar.setBackgroundColor({ color: '#FFFFFF' });
   }
 }

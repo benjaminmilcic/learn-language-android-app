@@ -154,6 +154,11 @@
               ></ion-col
             >
           </ion-row>
+           <ion-row style="margin-top: 70px;">
+            <ion-col style="display: flex; justify-content: center;">
+              <app-scratch-card [word]="wordToPractice[language]"></app-scratch-card>
+            </ion-col>
+          </ion-row>
         </ion-grid>
       </div>
     </ion-card-content>

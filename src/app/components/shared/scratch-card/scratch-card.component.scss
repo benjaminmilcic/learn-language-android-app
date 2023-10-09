@@ -1,0 +1,27 @@
+.scratch-container {
+  width: 250px;
+  height: 50px;
+//   background: blue;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.scratch-card {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  cursor: grabbing;
+}
+.scratch-word{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+canvas {
+    position: absolute;
+    cursor: grabbing;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}

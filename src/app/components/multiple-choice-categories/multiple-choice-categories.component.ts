@@ -91,7 +91,6 @@ export class MultipleChoiceCategoriesComponent implements OnInit, OnDestroy {
 
         // this code ist for testing... it reduces the vocableList to 2 Elements
         // this.vocableList.splice(2, this.vocableList.length - 2);
-
         this.startMultipleChoice(false);
       });
 
@@ -162,9 +161,9 @@ export class MultipleChoiceCategoriesComponent implements OnInit, OnDestroy {
   private fillOtherButtonsWithRandomWords() {
     let allButtonsAreFilled: boolean =
       this.wordListForButtons.length >= this.numberOfButtons;
-
     while (!allButtonsAreFilled) {
       const randomWord = this.createRandomWord();
+
       const buttonWithThisWordAlreadyExist: boolean =
         this.checkIfButtonWithThisWordAlreadyExist(randomWord);
 

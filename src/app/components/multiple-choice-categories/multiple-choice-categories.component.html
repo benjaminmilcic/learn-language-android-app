@@ -1,182 +1,192 @@
 <div class="wrapper" *ngIf="!allDone">
   <div>
-  <ion-segment mode="md" [(ngModel)]="inputMode">
-    <ion-segment-button value="multipleChoice">
-      <ion-label>Multiple Choice</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="text">
-      <ion-label>Text Input</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+    <ion-segment mode="md" [(ngModel)]="inputMode">
+      <ion-segment-button value="multipleChoice">
+        <ion-label>Multiple Choice</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="text">
+        <ion-label>Text Input</ion-label>
+      </ion-segment-button>
+    </ion-segment>
 
-  <ion-card-header>
-    <ion-card-subtitle class="ion-text-center header">
-      Noch&nbsp;{{ vocableList.length }}&nbsp;
-      <span *ngIf="vocableList.length > 1">Wörter</span>
-      <span *ngIf="vocableList.length === 1">Wort</span>
-    </ion-card-subtitle>
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col size="10">
-          <ion-card-title *ngIf="!audioMode" class="title">
-            <ion-grid style="padding-left: 0px">
-              <ion-row>
-                <ion-col style="padding-left: 0px" size="auto">{{
-                  wordToPractice[otherLanguage]
-                }}</ion-col>
-                <ion-col
-                  ><ion-icon
-                    [color]="isFavoriteIconColor(wordToPractice)"
-                    [name]="isFavoriteIconName(wordToPractice)"
-                    (click)="toggleFavorite(wordToPractice)"
-                  ></ion-icon
-                ></ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-card-title>
-          <ion-card-subtitle *ngIf="!audioMode">
-            Übersetzt ins {{ sprache }} bedeutet:</ion-card-subtitle
-          >
-          <ion-button *ngIf="audioMode" color="danger" (click)="onPlayAudio()">
-            <ion-icon slot="icon-only" name="play"></ion-icon>
-          </ion-button>
-        </ion-col>
-        <ion-col size="2">
-          <ion-button
-            size="small"
-            fill="clear"
-            color="medium"
-            (click)="skipWord()"
-          >
-            <ion-icon
-              slot="icon-only"
-              name="arrow-forward-circle-outline"
-            ></ion-icon>
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card-header>
-  <ion-card-content>
-    <div *ngIf="inputMode === 'multipleChoice'">
-      <ion-button
-        color="dark"
-        class="ion-margin"
-        expand="block"
-        fill="outline"
-        [disabled]="disabledWhileWaiting"
-        *ngIf="vocableList.length >= 1"
-        [ngClass]="styleOfButtons[0]"
-        (click)="onButtonClick(0)"
-      >
-        {{ wordListForButtons[0] }}
-      </ion-button>
-      <ion-button
-        color="dark"
-        class="ion-margin"
-        expand="block"
-        fill="outline"
-        [disabled]="disabledWhileWaiting"
-        *ngIf="vocableList.length > 1"
-        [ngClass]="styleOfButtons[1]"
-        (click)="onButtonClick(1)"
-      >
-        {{ wordListForButtons[1] }}
-      </ion-button>
-      <ion-button
-        color="dark"
-        class="ion-margin"
-        expand="block"
-        fill="outline"
-        [disabled]="disabledWhileWaiting"
-        *ngIf="vocableList.length > 2"
-        [ngClass]="styleOfButtons[2]"
-        (click)="onButtonClick(2)"
-      >
-        {{ wordListForButtons[2] }}
-      </ion-button>
-      <ion-button
-        color="dark"
-        class="ion-margin"
-        expand="block"
-        fill="outline"
-        [disabled]="disabledWhileWaiting"
-        *ngIf="vocableList.length > 3"
-        [ngClass]="styleOfButtons[3]"
-        (click)="onButtonClick(3)"
-      >
-        {{ wordListForButtons[3] }}
-      </ion-button>
-      <ion-button
-        color="dark"
-        class="ion-margin"
-        expand="block"
-        fill="outline"
-        [disabled]="disabledWhileWaiting"
-        *ngIf="vocableList.length > 4"
-        [ngClass]="styleOfButtons[4]"
-        (click)="onButtonClick(4)"
-      >
-        {{ wordListForButtons[4] }}
-      </ion-button>
-    </div>
-    <div *ngIf="inputMode === 'text'">
-      <ion-grid>
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-center header">
+        Noch&nbsp;{{ vocableList.length }}&nbsp;
+        <span *ngIf="vocableList.length > 1">Wörter</span>
+        <span *ngIf="vocableList.length === 1">Wort</span>
+      </ion-card-subtitle>
+      <ion-grid fixed>
         <ion-row>
-          <ion-col
-            ><ion-item lines="none" class="word-input" [ngClass]="styleOfInput">
-              <ion-input
-                [clearInput]="true"
-                [(ngModel)]="wordInput"
-                (keyup.enter)="onProof()"
-              ></ion-input></ion-item
-          ></ion-col>
-          <ion-col size="auto"
-            ><ion-button fill="clear" (click)="onSpeech()"
-              ><ion-icon
-                color="danger"
+          <ion-col size="10">
+            <ion-card-title *ngIf="!audioMode" class="title">
+              <ion-grid style="padding-left: 0px">
+                <ion-row>
+                  <ion-col style="padding-left: 0px" size="auto">{{
+                    wordToPractice[otherLanguage]
+                  }}</ion-col>
+                  <ion-col
+                    ><ion-icon
+                      [color]="isFavoriteIconColor(wordToPractice)"
+                      [name]="isFavoriteIconName(wordToPractice)"
+                      (click)="toggleFavorite(wordToPractice)"
+                    ></ion-icon
+                  ></ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-title>
+            <ion-card-subtitle *ngIf="!audioMode">
+              Übersetzt ins {{ sprache }} bedeutet:</ion-card-subtitle
+            >
+            <ion-button
+              *ngIf="audioMode"
+              color="danger"
+              (click)="onPlayAudio()"
+            >
+              <ion-icon slot="icon-only" name="play"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button
+              size="small"
+              fill="clear"
+              color="medium"
+              (click)="skipWord()"
+            >
+              <ion-icon
                 slot="icon-only"
-                name="mic"
-              ></ion-icon></ion-button
-          ></ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col
-            ><ion-button fill="outline" (click)="onProof()"
-              >Prüfen</ion-button
-            ></ion-col
-          >
+                name="arrow-forward-circle-outline"
+              ></ion-icon>
+            </ion-button>
+          </ion-col>
         </ion-row>
       </ion-grid>
-    </div>
-  </ion-card-content>
+    </ion-card-header>
+    <ion-card-content>
+      <div *ngIf="inputMode === 'multipleChoice'">
+        <ion-button
+          color="dark"
+          class="ion-margin"
+          expand="block"
+          fill="outline"
+          [disabled]="disabledWhileWaiting"
+          *ngIf="vocableList.length >= 1"
+          [ngClass]="styleOfButtons[0]"
+          (click)="onButtonClick(0)"
+        >
+          {{ wordListForButtons[0] }}
+        </ion-button>
+        <ion-button
+          color="dark"
+          class="ion-margin"
+          expand="block"
+          fill="outline"
+          [disabled]="disabledWhileWaiting"
+          *ngIf="vocableList.length > 1"
+          [ngClass]="styleOfButtons[1]"
+          (click)="onButtonClick(1)"
+        >
+          {{ wordListForButtons[1] }}
+        </ion-button>
+        <ion-button
+          color="dark"
+          class="ion-margin"
+          expand="block"
+          fill="outline"
+          [disabled]="disabledWhileWaiting"
+          *ngIf="vocableList.length > 2"
+          [ngClass]="styleOfButtons[2]"
+          (click)="onButtonClick(2)"
+        >
+          {{ wordListForButtons[2] }}
+        </ion-button>
+        <ion-button
+          color="dark"
+          class="ion-margin"
+          expand="block"
+          fill="outline"
+          [disabled]="disabledWhileWaiting"
+          *ngIf="vocableList.length > 3"
+          [ngClass]="styleOfButtons[3]"
+          (click)="onButtonClick(3)"
+        >
+          {{ wordListForButtons[3] }}
+        </ion-button>
+        <ion-button
+          color="dark"
+          class="ion-margin"
+          expand="block"
+          fill="outline"
+          [disabled]="disabledWhileWaiting"
+          *ngIf="vocableList.length > 4"
+          [ngClass]="styleOfButtons[4]"
+          (click)="onButtonClick(4)"
+        >
+          {{ wordListForButtons[4] }}
+        </ion-button>
+      </div>
+      <div *ngIf="inputMode === 'text'">
+        <ion-grid>
+          <ion-row>
+            <ion-col
+              ><ion-item
+                lines="none"
+                class="word-input"
+                [ngClass]="styleOfInput"
+              >
+                <ion-input
+                  [clearInput]="true"
+                  [(ngModel)]="wordInput"
+                  (keyup.enter)="onProof()"
+                ></ion-input></ion-item
+            ></ion-col>
+            <ion-col size="auto"
+              ><ion-button fill="clear" (click)="onSpeech()"
+                ><ion-icon
+                  color="danger"
+                  slot="icon-only"
+                  name="mic"
+                ></ion-icon></ion-button
+            ></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col
+              ><ion-button fill="outline" (click)="onProof()"
+                >Prüfen</ion-button
+              ></ion-col
+            >
+          </ion-row>
+          <ion-row style="margin-top: 70px;">
+            <ion-col style="display: flex; justify-content: center;">
+              <app-scratch-card [word]="wordToPractice[language]"></app-scratch-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-card-content>
   </div>
   <div>
     <ion-row>
-    <ion-col offset="2" size="2">
-      <ion-button
-        fill="clear"
-        (click)="onToggleLanguage()"
-      >
-        <ion-label>{{ languageFlag }}</ion-label>
-      </ion-button>
-    </ion-col>
-    <ion-col class="mode" size="6">
-      <ion-segment mode="ios"
-        color="secondary"
-        [value]="getActiveModeSegment()"
-        #modeSegment
-        (ionChange)="onChangeMode(modeSegment)"
-      >
-        <ion-segment-button value="text">
-          <ion-icon name="text-outline"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="audio">
-          <ion-icon name="musical-notes-outline"></ion-icon>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-col>
-  </ion-row>
+      <ion-col offset="2" size="2">
+        <ion-button fill="clear" (click)="onToggleLanguage()">
+          <ion-label>{{ languageFlag }}</ion-label>
+        </ion-button>
+      </ion-col>
+      <ion-col class="mode" size="6">
+        <ion-segment
+          mode="ios"
+          color="secondary"
+          [value]="getActiveModeSegment()"
+          #modeSegment
+          (ionChange)="onChangeMode(modeSegment)"
+        >
+          <ion-segment-button value="text">
+            <ion-icon name="text-outline"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value="audio">
+            <ion-icon name="musical-notes-outline"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
   </div>
-  
 </div>
