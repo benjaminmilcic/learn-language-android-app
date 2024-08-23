@@ -38,13 +38,15 @@ export class AddWordPage implements ViewWillEnter {
     this.otherLanguage = this.language === '🇭🇷' ? '🇩🇪' : '🇭🇷';
   }
 
-  onConfirm() {
-    this.addWordToWordlist();
-    this.deleteWordFromNotes();
-    this.navCtrl.navigateBack(['/notes']);
+  async onConfirm() {
+    let success = await this.addWordToWordlist();
+    if (success) {
+      this.deleteWordFromNotes();
+      this.navCtrl.navigateBack(['/notes']);
+    }
   }
 
-  addWordToWordlist() {
+  async addWordToWordlist(): Promise<boolean> {
     let index = this.wordlistService.wordlists
       .map((wordlist) => {
         return wordlist.name;
@@ -54,6 +56,32 @@ export class AddWordPage implements ViewWillEnter {
     if (index != -1) {
       const german = this.language === '🇩🇪' ? this.word : this.translation;
       const croatian = this.language === '🇩🇪' ? this.translation : this.word;
+
+      let wordExist = this.wordlistService.wordlists[index].items.find(
+        (item) => {
+          if (item.croatian === croatian || item.german === german) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      );
+
+      if (wordExist) {
+        const alert = await this.alertController.create({
+          header: 'Fehler',
+          message: `Dieses Wort existiert bereits in dieser Wortliste.</br></br>(hr: ${wordExist.croatian} - de: ${wordExist.german})</br></br>Bitte wählen Sie eine andere Wortliste oder gehen Sie zurück und löschen Sie dieses Wort aus den Notizen!`,
+          backdropDismiss: false,
+          buttons: [
+            {
+              text: 'OK',
+              role: 'cancel',
+            },
+          ],
+        });
+        await alert.present();
+        return false;
+      }
 
       this.wordlistService.wordlists[index].items.push({
         german: german,
@@ -65,6 +93,8 @@ export class AddWordPage implements ViewWillEnter {
       'wordlists',
       JSON.stringify(this.wordlistService.wordlists)
     );
+
+    return true;
   }
 
   deleteWordFromNotes() {
