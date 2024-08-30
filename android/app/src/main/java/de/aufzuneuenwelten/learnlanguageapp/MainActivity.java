@@ -1,4 +1,4 @@
-package io.ionic.learnlanguageapp;
+package de.aufzuneuenwelten.learnlanguageapp;
 
 import com.getcapacitor.BridgeActivity;
 

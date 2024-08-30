@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Learn Language App</string>
-    <string name="title_activity_main">Learn Language App</string>
-    <string name="package_name">io.ionic.learnlanguageapp</string>
-    <string name="custom_url_scheme">io.ionic.learnlanguageapp</string>
+    <string name="app_name">LearnLanguageApp</string>
+    <string name="title_activity_main">LearnLanguageApp</string>
+    <string name="package_name">de.aufzuneuenwelten.learnlanguageapp</string>
+    <string name="custom_url_scheme">de.aufzuneuenwelten.learnlanguageapp</string>
 </resources>
